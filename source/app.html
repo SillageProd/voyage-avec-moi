@@ -289,8 +289,20 @@ input[type="text"] {
 @media (max-width: 520px) {
   .rond { width: 54px; height: 54px; font-size: 24px; }
   .espace { width: 54px; }
-  .reponses { grid-template-columns: 1fr; }
-  .choix { min-height: 68px; }
+  /* quiz : tout doit tenir sur l'écran d'un iPhone, sans défiler */
+  #app { padding-block: 10px 12px; }
+  .jeu { gap: 10px; }
+  .quiz { gap: 10px; }
+  .enonce { padding: 8px 10px; gap: 4px; border-width: 5px; border-radius: 24px; box-shadow: 0 6px 0 rgba(36,48,87,.14); }
+  .enonce .drapeau { font-size: 44px; }
+  .enonce .sujet { font-size: 26px; }
+  .enonce .question { font-size: 17px; }
+  .parler { width: 40px; height: 40px; font-size: 19px; }
+  .mini { max-height: 15vh; border-radius: 12px; }
+  .reponses { gap: 8px; }
+  .choix { min-height: 52px; padding: 6px 10px; border-radius: 18px; font-size: 17px; border-width: 3px; }
+  .reponses.un .choix { font-size: 20px; }
+  .bulle { padding: 8px 14px; font-size: 17px; }
   .ligne-progres { grid-template-columns: 1fr auto; }
   .ligne-progres .jauge { grid-column: 1 / -1; grid-row: 2; }
   .consigne .drapeau { font-size: 36px; }
@@ -323,7 +335,7 @@ input[type="text"] {
   const ecrire = (cle, val) => { try { localStorage.setItem(PREFIXE + cle, JSON.stringify(val)); } catch (e) {} };
 
   // Numéro de version (MAJEUR.MINEUR.CORRECTIF) : à augmenter à chaque mise en ligne
-  const VERSION = "1.0.0";
+  const VERSION = "1.0.1";
   let versionEnLigne = null;   // version publiée sur le site, lue dans version.json
   const MAX_PROFILS = 6;
   const ANIMAUX = ["🦁", "🐸", "🐼", "🦊", "🐰", "🐙", "🐢", "🦄", "🐶", "🐱", "🐵", "🐧", "🐨", "🐯", "🦖", "🐝"];
@@ -629,7 +641,7 @@ input[type="text"] {
       const texte = cap ? esc(c.cap) : `<span class="fl">${drapeau(c.code)}</span><span>${esc(c.nom)}</span>`;
       return `<button class="choix ${etat}" data-a="repondre" data-v="${c.code}" ${etat || q.trouve ? "disabled" : ""}>${texte}</button>`;
     }).join("");
-    const retourQ = q.trouve ? `<div class="retour-quiz"><span class="bulle ok">${esc(phraseBravo(q))}</span><button class="gros vert" data-a="suivant" id="suivant">${partie.index + 1 < partie.pile.length ? L("Suivant ➜", "Volgende ➜") : L("Terminer 🏁", "Klaar 🏁")}</button></div>`
+    const retourQ = q.trouve ? `<div class="retour-quiz"><span class="bulle ok">${L("Bravo ! 🎉", "Goed zo! 🎉")}</span></div>`
       : q.rates.length ? `<div class="retour-quiz"><span class="bulle ko">${esc(phraseRate(q))}</span></div>` : "";
     return `
       ${barre(retour("quitter", L("Arrêter", "Stoppen")), `<span class="pastille">${partie.index + 1} / ${partie.pile.length}</span>`, avatarProfil(profil))}
@@ -641,8 +653,6 @@ input[type="text"] {
         </div>
       </div>`;
   }
-  const phraseBravo = q => NL ? (q.rates.length ? "Ja! " : "Goed zo! ") + q.pays.cap + " is de hoofdstad " + deArticle(q.pays) + "."
-    : (q.rates.length ? "Oui ! " : "Bravo ! ") + q.pays.cap + " est la capitale " + deArticle(q.pays) + ".";
   const phraseRate = q => {
     const r = PAR_CODE[q.rates[q.rates.length - 1]];
     if (NL) return partie.jeu === "capitale" ? "Nee, " + r.cap + " is de hoofdstad " + deArticle(r) + ". Probeer opnieuw!" : "Nee, de hoofdstad " + deArticle(r) + " is " + r.cap + ". Probeer opnieuw!";
@@ -770,7 +780,6 @@ input[type="text"] {
       const maj = () => { brouillon.nom = champ.value; document.getElementById("btnCreer").disabled = !champ.value.trim(); };
       champ.addEventListener("input", maj); maj();
     }
-    if (ecran === "quiz") { const s = document.getElementById("suivant"); if (s) s.focus({ preventScroll: true }); }
   }
   const aller = e => { ecran = e; window.scrollTo(0, 0); afficher(); };
 
@@ -812,12 +821,16 @@ input[type="text"] {
   }
 
   // --- quiz ---
+  let minuteurQuiz = null;
   function repondre(code) {
     const q = partie.pile[partie.index];
     if (q.trouve) return;
     if (code === q.pays.code) {
+      // juste : seulement « Bravo ! », puis la question suivante arrive toute seule
       q.trouve = true; noter(q); bip("ok");
-      afficher(); dire(phraseBravo(q));
+      afficher(); dire(L("Bravo !", "Goed zo!"));
+      clearTimeout(minuteurQuiz);
+      minuteurQuiz = setTimeout(() => { if (partie && partie.pile[partie.index] === q) suivant(); }, 1300);
     } else {
       q.rates.push(code); bip("ko");
       afficher(); dire(phraseRate(q));
@@ -1027,14 +1040,13 @@ input[type="text"] {
     demarrer() { demarrer(false); },
     demarrerRevoir() { demarrer(true); },
     repondre(el) { repondre(el.dataset.v); },
-    suivant() { suivant(); },
     parler() {
       if (!partie) return;
       const q = partie.pile[partie.index];
       if (ecran === "quiz") dire(questionParlee(q));
       else dire(partie.jeu === "carteCap" ? ouEstVille(q.pays) + L(" C'est la capitale ", " Het is de hoofdstad ") + deArticle(q.pays) + "." : ouEst(q.pays));
     },
-    quitter() { clearTimeout(minuteurCarte); partie = null; try { speechSynthesis.cancel(); } catch (e) {} aller("reglages"); },
+    quitter() { clearTimeout(minuteurCarte); clearTimeout(minuteurQuiz); partie = null; try { speechSynthesis.cancel(); } catch (e) {} aller("reglages"); },
     zoomPlus() { zoomer(1.5); },
     zoomMoins() { zoomer(1 / 1.5); },
     zoomTout() { vue.x = 0; vue.y = 0; vue.w = carteInfo.k.w; appliquerVue(); },
