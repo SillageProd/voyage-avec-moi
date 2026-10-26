@@ -1,0 +1,196 @@
+# code|continent|ue|nom|capitale|lat|lon   (continent : EU, AF, AS, AN = Amérique du Nord et centrale, AS2 = Amérique du Sud, OC)
+AT|EU|1|Autriche|Vienne|48.21|16.37
+BE|EU|1|Belgique|Bruxelles|50.85|4.35
+BG|EU|1|Bulgarie|Sofia|42.70|23.32
+HR|EU|1|Croatie|Zagreb|45.81|15.98
+CY|EU|1|Chypre|Nicosie|35.17|33.36
+CZ|EU|1|Tchéquie|Prague|50.08|14.44
+DK|EU|1|Danemark|Copenhague|55.68|12.57
+EE|EU|1|Estonie|Tallinn|59.44|24.75
+FI|EU|1|Finlande|Helsinki|60.17|24.94
+FR|EU|1|France|Paris|48.86|2.35
+DE|EU|1|Allemagne|Berlin|52.52|13.40
+GR|EU|1|Grèce|Athènes|37.98|23.73
+HU|EU|1|Hongrie|Budapest|47.50|19.04
+IE|EU|1|Irlande|Dublin|53.35|-6.26
+IT|EU|1|Italie|Rome|41.90|12.50
+LV|EU|1|Lettonie|Riga|56.95|24.11
+LT|EU|1|Lituanie|Vilnius|54.69|25.28
+LU|EU|1|Luxembourg|Luxembourg|49.61|6.13
+MT|EU|1|Malte|La Valette|35.90|14.51
+NL|EU|1|Pays-Bas|Amsterdam|52.37|4.90
+PL|EU|1|Pologne|Varsovie|52.23|21.01
+PT|EU|1|Portugal|Lisbonne|38.72|-9.14
+RO|EU|1|Roumanie|Bucarest|44.43|26.10
+SK|EU|1|Slovaquie|Bratislava|48.15|17.11
+SI|EU|1|Slovénie|Ljubljana|46.06|14.51
+ES|EU|1|Espagne|Madrid|40.42|-3.70
+SE|EU|1|Suède|Stockholm|59.33|18.07
+AL|EU|0|Albanie|Tirana|41.33|19.82
+AD|EU|0|Andorre|Andorre-la-Vieille|42.51|1.52
+BY|EU|0|Biélorussie|Minsk|53.90|27.57
+BA|EU|0|Bosnie-Herzégovine|Sarajevo|43.86|18.41
+IS|EU|0|Islande|Reykjavik|64.15|-21.94
+XK|EU|0|Kosovo|Pristina|42.66|21.17
+LI|EU|0|Liechtenstein|Vaduz|47.14|9.52
+MK|EU|0|Macédoine du Nord|Skopje|42.00|21.43
+MD|EU|0|Moldavie|Chisinau|47.01|28.86
+MC|EU|0|Monaco|Monaco|43.73|7.42
+ME|EU|0|Monténégro|Podgorica|42.44|19.26
+NO|EU|0|Norvège|Oslo|59.91|10.75
+GB|EU|0|Royaume-Uni|Londres|51.51|-0.13
+RU|EU|0|Russie|Moscou|55.76|37.62
+SM|EU|0|Saint-Marin|Saint-Marin|43.94|12.45
+RS|EU|0|Serbie|Belgrade|44.79|20.45
+CH|EU|0|Suisse|Berne|46.95|7.45
+UA|EU|0|Ukraine|Kiev|50.45|30.52
+VA|EU|0|Vatican|Vatican|41.90|12.45
+DZ|AF|0|Algérie|Alger|36.75|3.06
+AO|AF|0|Angola|Luanda|-8.84|13.23
+BJ|AF|0|Bénin|Porto-Novo|6.50|2.60
+BW|AF|0|Botswana|Gaborone|-24.65|25.91
+BF|AF|0|Burkina Faso|Ouagadougou|12.37|-1.53
+BI|AF|0|Burundi|Gitega|-3.43|29.93
+CV|AF|0|Cap-Vert|Praia|14.93|-23.51
+CM|AF|0|Cameroun|Yaoundé|3.85|11.50
+CF|AF|0|Centrafrique|Bangui|4.39|18.56
+TD|AF|0|Tchad|N'Djaména|12.13|15.06
+KM|AF|0|Comores|Moroni|-11.70|43.26
+CG|AF|0|Congo|Brazzaville|-4.27|15.28
+CD|AF|0|République démocratique du Congo|Kinshasa|-4.32|15.31
+CI|AF|0|Côte d'Ivoire|Yamoussoukro|6.83|-5.29
+DJ|AF|0|Djibouti|Djibouti|11.59|43.15
+EG|AF|0|Égypte|Le Caire|30.04|31.24
+GQ|AF|0|Guinée équatoriale|Malabo|3.75|8.78
+ER|AF|0|Érythrée|Asmara|15.32|38.93
+SZ|AF|0|Eswatini|Mbabane|-26.31|31.14
+ET|AF|0|Éthiopie|Addis-Abeba|9.03|38.74
+GA|AF|0|Gabon|Libreville|0.39|9.45
+GM|AF|0|Gambie|Banjul|13.45|-16.58
+GH|AF|0|Ghana|Accra|5.60|-0.19
+GN|AF|0|Guinée|Conakry|9.64|-13.58
+GW|AF|0|Guinée-Bissau|Bissau|11.86|-15.60
+KE|AF|0|Kenya|Nairobi|-1.29|36.82
+LS|AF|0|Lesotho|Maseru|-29.31|27.48
+LR|AF|0|Liberia|Monrovia|6.30|-10.80
+LY|AF|0|Libye|Tripoli|32.89|13.19
+MG|AF|0|Madagascar|Antananarivo|-18.88|47.51
+MW|AF|0|Malawi|Lilongwe|-13.96|33.79
+ML|AF|0|Mali|Bamako|12.64|-8.00
+MR|AF|0|Mauritanie|Nouakchott|18.09|-15.98
+MU|AF|0|Maurice|Port-Louis|-20.16|57.50
+MA|AF|0|Maroc|Rabat|34.02|-6.84
+MZ|AF|0|Mozambique|Maputo|-25.97|32.57
+NA|AF|0|Namibie|Windhoek|-22.56|17.08
+NE|AF|0|Niger|Niamey|13.51|2.11
+NG|AF|0|Nigeria|Abuja|9.08|7.40
+RW|AF|0|Rwanda|Kigali|-1.94|30.06
+ST|AF|0|Sao Tomé-et-Principe|São Tomé|0.34|6.73
+SN|AF|0|Sénégal|Dakar|14.72|-17.47
+SC|AF|0|Seychelles|Victoria|-4.62|55.45
+SL|AF|0|Sierra Leone|Freetown|8.47|-13.23
+SO|AF|0|Somalie|Mogadiscio|2.05|45.32
+ZA|AF|0|Afrique du Sud|Pretoria|-25.75|28.19
+SS|AF|0|Soudan du Sud|Djouba|4.85|31.58
+SD|AF|0|Soudan|Khartoum|15.50|32.56
+TZ|AF|0|Tanzanie|Dodoma|-6.16|35.75
+TG|AF|0|Togo|Lomé|6.13|1.22
+TN|AF|0|Tunisie|Tunis|36.81|10.18
+UG|AF|0|Ouganda|Kampala|0.35|32.58
+ZM|AF|0|Zambie|Lusaka|-15.39|28.32
+ZW|AF|0|Zimbabwe|Harare|-17.83|31.05
+AF|AS|0|Afghanistan|Kaboul|34.53|69.17
+AM|AS|0|Arménie|Erevan|40.18|44.51
+AZ|AS|0|Azerbaïdjan|Bakou|40.41|49.87
+BH|AS|0|Bahreïn|Manama|26.23|50.59
+BD|AS|0|Bangladesh|Dacca|23.81|90.41
+BT|AS|0|Bhoutan|Thimphou|27.47|89.64
+BN|AS|0|Brunei|Bandar Seri Begawan|4.90|114.94
+KH|AS|0|Cambodge|Phnom Penh|11.56|104.92
+CN|AS|0|Chine|Pékin|39.90|116.40
+GE|AS|0|Géorgie|Tbilissi|41.72|44.79
+IN|AS|0|Inde|New Delhi|28.61|77.21
+ID|AS|0|Indonésie|Jakarta|-6.21|106.85
+IR|AS|0|Iran|Téhéran|35.69|51.39
+IQ|AS|0|Irak|Bagdad|33.31|44.37
+IL|AS|0|Israël|Jérusalem|31.77|35.21
+JP|AS|0|Japon|Tokyo|35.68|139.69
+JO|AS|0|Jordanie|Amman|31.95|35.93
+KZ|AS|0|Kazakhstan|Astana|51.17|71.45
+KW|AS|0|Koweït|Koweït|29.38|47.99
+KG|AS|0|Kirghizistan|Bichkek|42.87|74.59
+LA|AS|0|Laos|Vientiane|17.98|102.63
+LB|AS|0|Liban|Beyrouth|33.89|35.50
+MY|AS|0|Malaisie|Kuala Lumpur|3.14|101.69
+MV|AS|0|Maldives|Malé|4.18|73.51
+MN|AS|0|Mongolie|Oulan-Bator|47.89|106.91
+MM|AS|0|Birmanie|Naypyidaw|19.76|96.08
+NP|AS|0|Népal|Katmandou|27.72|85.32
+KP|AS|0|Corée du Nord|Pyongyang|39.04|125.76
+OM|AS|0|Oman|Mascate|23.59|58.41
+PK|AS|0|Pakistan|Islamabad|33.68|73.05
+PH|AS|0|Philippines|Manille|14.60|120.98
+QA|AS|0|Qatar|Doha|25.29|51.53
+SA|AS|0|Arabie saoudite|Riyad|24.71|46.68
+SG|AS|0|Singapour|Singapour|1.29|103.85
+KR|AS|0|Corée du Sud|Séoul|37.57|126.98
+LK|AS|0|Sri Lanka|Sri Jayawardenapura Kotte|6.90|79.92
+SY|AS|0|Syrie|Damas|33.51|36.29
+TJ|AS|0|Tadjikistan|Douchanbé|38.56|68.79
+TH|AS|0|Thaïlande|Bangkok|13.76|100.50
+TL|AS|0|Timor oriental|Dili|-8.56|125.57
+TR|AS|0|Turquie|Ankara|39.93|32.86
+TM|AS|0|Turkménistan|Achgabat|37.95|58.38
+AE|AS|0|Émirats arabes unis|Abou Dabi|24.45|54.38
+UZ|AS|0|Ouzbékistan|Tachkent|41.30|69.24
+VN|AS|0|Viêt Nam|Hanoï|21.03|105.85
+YE|AS|0|Yémen|Sanaa|15.37|44.19
+AG|AN|0|Antigua-et-Barbuda|Saint John's|17.12|-61.85
+BS|AN|0|Bahamas|Nassau|25.05|-77.35
+BB|AN|0|Barbade|Bridgetown|13.10|-59.62
+BZ|AN|0|Belize|Belmopan|17.25|-88.76
+CA|AN|0|Canada|Ottawa|45.42|-75.70
+CR|AN|0|Costa Rica|San José|9.93|-84.08
+CU|AN|0|Cuba|La Havane|23.11|-82.37
+DM|AN|0|Dominique|Roseau|15.30|-61.39
+DO|AN|0|République dominicaine|Saint-Domingue|18.49|-69.93
+SV|AN|0|Salvador|San Salvador|13.69|-89.22
+GD|AN|0|Grenade|Saint-Georges|12.06|-61.75
+GT|AN|0|Guatemala|Guatemala|14.63|-90.51
+HT|AN|0|Haïti|Port-au-Prince|18.59|-72.31
+HN|AN|0|Honduras|Tegucigalpa|14.07|-87.19
+JM|AN|0|Jamaïque|Kingston|18.02|-76.80
+MX|AN|0|Mexique|Mexico|19.43|-99.13
+NI|AN|0|Nicaragua|Managua|12.11|-86.24
+PA|AN|0|Panama|Panama|8.98|-79.52
+KN|AN|0|Saint-Christophe-et-Niévès|Basseterre|17.30|-62.72
+LC|AN|0|Sainte-Lucie|Castries|14.01|-60.99
+VC|AN|0|Saint-Vincent-et-les-Grenadines|Kingstown|13.16|-61.22
+TT|AN|0|Trinité-et-Tobago|Port-d'Espagne|10.66|-61.51
+US|AN|0|États-Unis|Washington|38.90|-77.04
+AR|AS2|0|Argentine|Buenos Aires|-34.60|-58.38
+BO|AS2|0|Bolivie|Sucre|-19.05|-65.26
+BR|AS2|0|Brésil|Brasília|-15.79|-47.88
+CL|AS2|0|Chili|Santiago|-33.45|-70.67
+CO|AS2|0|Colombie|Bogota|4.71|-74.07
+EC|AS2|0|Équateur|Quito|-0.18|-78.47
+GY|AS2|0|Guyana|Georgetown|6.80|-58.16
+PY|AS2|0|Paraguay|Asuncion|-25.26|-57.58
+PE|AS2|0|Pérou|Lima|-12.05|-77.04
+SR|AS2|0|Suriname|Paramaribo|5.85|-55.20
+UY|AS2|0|Uruguay|Montevideo|-34.90|-56.16
+VE|AS2|0|Venezuela|Caracas|10.48|-66.90
+AU|OC|0|Australie|Canberra|-35.28|149.13
+FJ|OC|0|Fidji|Suva|-18.14|178.44
+KI|OC|0|Kiribati|Tarawa-Sud|1.33|172.98
+MH|OC|0|Îles Marshall|Majuro|7.09|171.38
+FM|OC|0|Micronésie|Palikir|6.92|158.16
+NR|OC|0|Nauru|Yaren|-0.55|166.92
+NZ|OC|0|Nouvelle-Zélande|Wellington|-41.29|174.78
+PW|OC|0|Palaos|Ngerulmud|7.50|134.62
+PG|OC|0|Papouasie-Nouvelle-Guinée|Port Moresby|-9.44|147.18
+WS|OC|0|Samoa|Apia|-13.83|-171.77
+SB|OC|0|Îles Salomon|Honiara|-9.43|159.95
+TO|OC|0|Tonga|Nuku'alofa|-21.14|-175.20
+TV|OC|0|Tuvalu|Funafuti|-8.52|179.20
+VU|OC|0|Vanuatu|Port-Vila|-17.73|168.32

@@ -1,0 +1,1080 @@
+<title>Voyage avec moi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Voyage avec moi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;600;700&display=swap">
+<style>
+/* Mise en page : la petite sœur de « Lis avec moi ». Un écran à la fois, gros boutons pour petits doigts.
+   Look volontairement unique (clair et vif), quel que soit le thème de l'appareil. */
+:root {
+  color-scheme: light;
+  --ciel: #dcefff;          /* fond bleu ciel */
+  --ciel-2: #c3e2fb;
+  --encre: #243057;         /* texte */
+  --encre-douce: #5a6488;
+  --cadre: #7176d6;
+  --papier: #ffffff;
+  --soleil: #ffb627;
+  --orange: #ff8a3d;
+  --vrai: #22b573;
+  --vrai-fonce: #168a55;
+  --faux: #f2545b;
+  --faux-fonce: #c63a41;
+  --mer: #bfe3f7;
+  --terre: #ece6d6;
+  --trouve: #5fd39a;
+  --ombre: 0 6px 0 rgba(36, 48, 87, .18);
+  --f-titre: "Fredoka", "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif;
+  --f-mot: "Andika", "Century Gothic", "Avenir Next", system-ui, sans-serif;
+}
+html, body { height: 100%; }
+body {
+  background: var(--ciel);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,.6) 0 38px, transparent 39px),
+    radial-gradient(circle at 88% 12%, rgba(255,182,39,.28) 0 54px, transparent 55px),
+    radial-gradient(circle at 92% 86%, rgba(34,181,115,.16) 0 70px, transparent 71px),
+    radial-gradient(circle at 6% 92%, rgba(113,118,214,.16) 0 48px, transparent 49px);
+  color: var(--encre);
+  font-family: var(--f-titre);
+  font-size: 18px;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none; user-select: none;
+  overflow-x: hidden;
+}
+#app {
+  min-height: 100%;
+  box-sizing: border-box;
+  display: flex; flex-direction: column;
+  padding-block: 16px 20px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  max-width: 1100px; margin: 0 auto;
+}
+#app.plein { height: 100%; max-width: none; }
+h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 700; }
+h1 { font-size: clamp(30px, 6vw, 52px); letter-spacing: .5px; }
+h2 { font-size: clamp(22px, 4.2vw, 34px); }
+p { margin: 0; }
+button { font: inherit; color: inherit; border: 0; cursor: pointer; touch-action: manipulation; }
+button:focus-visible, input:focus-visible { outline: 4px solid var(--soleil); outline-offset: 3px; }
+input[type="text"] {
+  font: inherit; font-family: var(--f-mot); color: var(--encre);
+  background: var(--papier); border: 3px solid var(--cadre); border-radius: 16px;
+  padding: 14px 16px; width: 100%; box-sizing: border-box; font-size: 20px;
+  -webkit-user-select: text; user-select: text;
+}
+
+/* barre du haut */
+.barre { display: flex; align-items: center; gap: 12px; min-height: 64px; }
+.barre .titre { flex: 1; min-width: 0; text-align: center; }
+.rond {
+  width: 64px; height: 64px; border-radius: 50%; flex: none;
+  background: var(--papier); box-shadow: var(--ombre);
+  display: grid; place-items: center; font-size: 28px;
+}
+.rond:active, .gros:active, .tuile:active, .duree:active, .mode:active, .continent:active, .choix:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(36,48,87,.18); }
+.espace { width: 64px; flex: none; }
+
+/* gros boutons */
+.gros {
+  min-height: 84px; padding: 0 28px; border-radius: 28px;
+  font-size: clamp(22px, 3.6vw, 30px); font-weight: 700;
+  background: var(--soleil); color: var(--encre); box-shadow: var(--ombre);
+  display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+}
+.gros.bleu { background: var(--cadre); color: #fff; }
+.gros.vert { background: var(--vrai); color: #fff; }
+.gros.blanc { background: var(--papier); }
+.gros.petit { min-height: 60px; font-size: 20px; border-radius: 20px; padding: 0 20px; }
+.gros[disabled] { opacity: .45; pointer-events: none; }
+
+/* écran profils */
+.centre { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+.entete { text-align: center; display: grid; gap: 6px; }
+.titre-app { text-align: center; margin: clamp(22px, 4vh, 40px) 0 0; font-size: clamp(38px, 8vw, 66px); font-weight: 800; letter-spacing: .5px; line-height: 1.1; color: #1f2f7a; }
+.titre-app + .centre h1 { font-size: clamp(26px, 4.8vw, 40px); }
+.entete p { color: var(--encre-douce); font-size: clamp(18px, 3vw, 24px); font-weight: 500; }
+.grille-profils { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 18px; max-width: 900px; width: 100%; margin: 0 auto; }
+.tuile {
+  background: var(--papier); border-radius: 30px; box-shadow: var(--ombre);
+  padding: 18px 10px 16px; display: grid; justify-items: center; gap: 8px;
+  border: 6px solid var(--c, var(--cadre)); min-height: 170px; align-content: center;
+}
+.tuile .avatar { font-size: 64px; line-height: 1; }
+.tuile .nom { font-size: 24px; font-weight: 600; max-width: 100%; overflow-wrap: anywhere; }
+.tuile.ajout { border-style: dashed; background: rgba(255,255,255,.6); color: var(--encre-douce); }
+.tuile.ajout .avatar { font-size: 56px; font-weight: 700; color: var(--cadre); }
+.bas { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; }
+.version { text-align: center; color: var(--encre-douce); font-size: 13px; opacity: .7; margin: 0; font-variant-numeric: tabular-nums; }
+.maj { background: var(--soleil); border-radius: 16px; padding: 12px 18px; font-size: 17px; font-weight: 600; box-shadow: var(--ombre); }
+.copyright { text-align: center; color: var(--encre-douce); font-size: 14px; font-weight: 500; opacity: .8; margin: 4px 0 0; }
+.lien-parents { background: transparent; color: var(--encre-douce); font-size: 18px; font-weight: 600; padding: 14px 18px; border-radius: 14px; }
+
+/* création de profil */
+.panneau { background: var(--papier); border-radius: 30px; box-shadow: var(--ombre); padding: 22px; display: grid; gap: 18px; max-width: 760px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+.etiquette { font-size: 18px; font-weight: 600; color: var(--encre-douce); }
+.choix-animaux { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 10px; }
+.choix-animaux button { height: 72px; border-radius: 20px; background: var(--ciel); font-size: 40px; border: 4px solid transparent; }
+.choix-animaux button[aria-pressed="true"] { border-color: var(--cadre); background: #fff7e0; }
+.choix-couleurs { display: flex; flex-wrap: wrap; gap: 12px; }
+.choix-couleurs button { width: 60px; height: 60px; border-radius: 50%; background: var(--c); border: 5px solid #fff; box-shadow: 0 0 0 3px transparent; }
+.choix-couleurs button[aria-pressed="true"] { box-shadow: 0 0 0 4px var(--encre); }
+
+/* choix du continent */
+.ue {
+  max-width: 900px; width: 100%; margin: 0 auto; box-sizing: border-box;
+  border-radius: 34px; padding: 18px 24px; box-shadow: var(--ombre);
+  background: #2b4fbf; color: #fff; display: flex; align-items: center; gap: 18px; text-align: left;
+}
+.ue .ico { font-size: 64px; line-height: 1; }
+.ue .nom { font-size: clamp(26px, 4.6vw, 38px); font-weight: 700; display: block; }
+.ue .sous { font-size: 18px; font-weight: 500; opacity: .9; }
+.ue .etoiles-mini { margin-left: auto; }
+.continents { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; max-width: 900px; width: 100%; margin: 0 auto; }
+.continent {
+  border-radius: 30px; padding: 18px 14px; min-height: 150px; box-shadow: var(--ombre); background: var(--c); color: #fff;
+  display: grid; justify-items: center; align-content: center; gap: 6px; text-align: center;
+}
+.continent .ico { font-size: 56px; line-height: 1; }
+.continent .nom { font-size: clamp(24px, 3.6vw, 30px); font-weight: 700; }
+.continent .sous, .etoiles-mini { font-size: 17px; font-weight: 600; opacity: .95; }
+.ue:active { transform: translateY(4px); }
+.titre-section { text-align: center; font-size: 22px; color: var(--encre-douce); font-weight: 600; }
+
+/* choix du jeu */
+.modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; max-width: 900px; width: 100%; margin: 0 auto; }
+.mode {
+  border-radius: 34px; padding: 22px 18px; min-height: 190px; box-shadow: var(--ombre); color: #fff; background: var(--c);
+  display: grid; justify-items: center; align-content: center; gap: 8px; text-align: center;
+}
+.mode .ico { font-size: 64px; line-height: 1; }
+.mode .nom { font-size: clamp(24px, 4vw, 32px); font-weight: 700; }
+.mode .sous { font-size: 17px; font-weight: 500; opacity: .9; }
+
+/* réglages */
+.reglages { display: grid; gap: 22px; max-width: 820px; width: 100%; margin: 0 auto; }
+.reglage { display: grid; gap: 10px; justify-items: center; }
+.durees { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 12px; width: 100%; }
+.duree {
+  min-height: 108px; border-radius: 26px; background: var(--papier); box-shadow: var(--ombre);
+  display: grid; place-content: center; text-align: center; border: 5px solid transparent; gap: 2px;
+}
+.duree b { font-size: clamp(30px, 6vw, 48px); line-height: 1; }
+.duree span { font-size: clamp(14px, 2.4vw, 18px); color: var(--encre-douce); }
+.duree[aria-pressed="true"] { border-color: var(--cadre); background: #eceeff; }
+.note { text-align: center; color: var(--encre-douce); font-size: 18px; font-weight: 500; }
+
+/* quiz */
+.jeu { flex: 1; display: grid; grid-template-rows: auto 1fr; gap: 14px; min-height: 0; }
+.pastille { background: var(--papier); border-radius: 999px; padding: 10px 20px; font-size: clamp(22px, 3.6vw, 30px); font-weight: 700; box-shadow: var(--ombre); font-variant-numeric: tabular-nums; display: inline-flex; gap: 10px; align-items: center; }
+.quiz { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; min-height: 0; }
+.enonce {
+  background: var(--papier); border: clamp(6px, 1.2vw, 10px) solid var(--cadre); border-radius: 34px;
+  box-shadow: 0 10px 0 rgba(36,48,87,.14); padding: 16px; display: grid; gap: 10px; justify-items: center; text-align: center;
+}
+.enonce .drapeau { font-size: clamp(64px, 11vw, 100px); line-height: 1; }
+.enonce .sujet { font-family: var(--f-mot); font-size: clamp(30px, 5.4vw, 48px); font-weight: 700; line-height: 1.1; overflow-wrap: anywhere; }
+.enonce .question { font-size: clamp(20px, 3.4vw, 26px); font-weight: 600; color: var(--encre-douce); display: flex; align-items: center; gap: 10px; }
+.mini { width: 100%; max-height: 34vh; border-radius: 18px; background: var(--mer); display: block; }
+.parler { width: 52px; height: 52px; border-radius: 50%; background: var(--ciel); font-size: 24px; flex: none; }
+.reponses { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.reponses.un { grid-template-columns: 1fr; }
+.choix {
+  min-height: 92px; border-radius: 26px; background: var(--papier); box-shadow: var(--ombre); padding: 10px 14px;
+  font-family: var(--f-mot); font-size: clamp(20px, 3vw, 26px); font-weight: 700; line-height: 1.15;
+  display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; overflow-wrap: anywhere;
+  border: 5px solid transparent;
+}
+.choix .fl { font-size: 1.5em; line-height: 1; flex: none; }
+.choix.bon { background: var(--vrai); color: #fff; border-color: var(--vrai-fonce); }
+.choix.raté { background: #ffe3e4; color: var(--faux-fonce); border-color: var(--faux); opacity: .75; animation: non .4s; }
+.choix[disabled] { pointer-events: none; }
+@keyframes non { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+.retour-quiz { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: center; text-align: center; }
+.bulle { background: var(--papier); border-radius: 22px; padding: 12px 20px; font-size: clamp(19px, 3vw, 24px); font-weight: 600; box-shadow: var(--ombre); }
+.bulle.ok { background: #dcf7e9; color: var(--vrai-fonce); }
+.bulle.ko { background: #ffe9ea; color: var(--faux-fonce); }
+
+/* jeu de la carte */
+.jeu-carte { flex: 1; display: grid; grid-template-rows: auto 1fr; gap: 12px; min-height: 0; }
+.consigne {
+  background: var(--papier); border: 6px solid var(--cadre); border-radius: 26px; padding: 10px 16px; box-shadow: var(--ombre);
+  display: flex; align-items: center; gap: 14px; min-height: 64px;
+}
+.consigne .drapeau { font-size: 46px; line-height: 1; }
+.consigne .texte { flex: 1; min-width: 0; font-size: clamp(22px, 3.8vw, 32px); font-weight: 700; line-height: 1.15; }
+.consigne .texte small { display: block; font-size: .62em; color: var(--encre-douce); font-weight: 600; }
+.consigne.ok { border-color: var(--vrai); }
+.consigne.ko { border-color: var(--faux); }
+.boite-carte { position: relative; min-height: 0; border-radius: 26px; overflow: hidden; background: var(--mer); box-shadow: var(--ombre); }
+.boite-carte svg { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; display: block; }
+.zoom { position: absolute; right: 10px; bottom: 10px; display: grid; gap: 10px; }
+.zoom button { width: 58px; height: 58px; border-radius: 50%; background: var(--papier); box-shadow: var(--ombre); font-size: 30px; font-weight: 700; }
+
+/* dessin des cartes */
+.fond { fill: var(--terre); stroke: #fff; stroke-width: .8; vector-effect: non-scaling-stroke; }
+.pays { stroke: #fff; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.pays.c0 { fill: #ffe6a7; } .pays.c1 { fill: #f3e7b9; } .pays.c2 { fill: #ffd1c1; } .pays.c3 { fill: #d9d7ff; } .pays.c4 { fill: #c8ecf0; } .pays.c5 { fill: #f9d3ec; }
+.pays.trouve, .rond-pays.trouve { fill: var(--trouve); }
+.pays.cible, .rond-pays.cible { fill: var(--orange); }
+.pays.indice { fill: var(--soleil); animation: clignote 1s ease-in-out infinite; }
+.pays.mauvais, .rond-pays.mauvais { fill: var(--faux); }
+.pays.eteint { fill: #f4f1e8; }
+.rond-pays { fill: #ffe6a7; stroke: var(--encre); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.rond-pays.indice { fill: var(--soleil); animation: clignote 1s ease-in-out infinite; }
+.anneau { fill: none; stroke: var(--orange); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.ville { fill: #fff; stroke: var(--encre); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.ville.trouve { fill: var(--vrai); }
+.ville.mauvais { fill: var(--faux); }
+.ville.indice { fill: var(--soleil); animation: clignote 1s ease-in-out infinite; }
+.etoile-ville { fill: var(--faux); stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.etiq { font-family: var(--f-titre); font-weight: 700; fill: var(--encre); paint-order: stroke; stroke: #fff; stroke-linejoin: round; text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
+.etiq.ko { fill: var(--faux-fonce); }
+@keyframes clignote { 50% { opacity: .35; } }
+
+/* fin de partie */
+.fin { flex: 1; display: grid; align-content: center; justify-items: center; gap: 20px; text-align: center; }
+.medaille { font-size: 96px; line-height: 1; }
+.bravo { font-size: clamp(40px, 9vw, 76px); color: var(--orange); text-shadow: 0 4px 0 rgba(36,48,87,.15); overflow-wrap: anywhere; animation: bravo .7s cubic-bezier(.3,1.6,.5,1) both; }
+@keyframes bravo { from { transform: scale(.3) rotate(-8deg); opacity: 0; } to { transform: scale(1) rotate(-2deg); opacity: 1; } }
+.etoiles { font-size: clamp(54px, 11vw, 90px); letter-spacing: 6px; line-height: 1; }
+.eteinte { filter: grayscale(1); opacity: .3; }
+.score-legende { font-size: clamp(22px, 4vw, 30px); font-weight: 600; }
+.erreurs { background: var(--papier); border-radius: 26px; box-shadow: var(--ombre); padding: 14px 20px; display: grid; gap: 8px; max-width: 640px; width: 100%; box-sizing: border-box; text-align: left; }
+.erreurs h3 { font-size: 22px; }
+.erreurs li { font-family: var(--f-mot); font-size: 21px; list-style: none; }
+.erreurs ul { margin: 0; padding: 0; display: grid; gap: 6px; }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+
+/* progrès */
+.progres { display: grid; gap: 16px; max-width: 900px; width: 100%; margin: 0 auto; }
+.carte-progres { background: var(--papier); border-radius: 26px; box-shadow: var(--ombre); padding: 14px 18px; display: grid; gap: 10px; border-left: 12px solid var(--c); }
+.carte-progres h3 { font-size: 24px; }
+.ligne-progres { display: grid; grid-template-columns: minmax(150px, 1.2fr) 2fr auto; gap: 12px; align-items: center; font-size: 18px; font-weight: 600; }
+.jauge { height: 18px; border-radius: 999px; background: var(--ciel); overflow: hidden; }
+.jauge i { display: block; height: 100%; background: var(--vrai); border-radius: 999px; }
+.ligne-progres .compte { color: var(--encre-douce); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* espace parents */
+.parents { display: grid; gap: 18px; max-width: 820px; width: 100%; margin: 0 auto; }
+.parents h3 { font-size: 24px; }
+.parents .aide { color: var(--encre-douce); font-size: 17px; font-weight: 500; line-height: 1.45; font-family: system-ui, sans-serif; }
+.ligne { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.profil-ligne { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 8px 0; border-top: 2px dashed var(--ciel-2); }
+.profil-ligne:first-of-type { border-top: 0; }
+.profil-ligne .qui { flex: 1 1 140px; min-width: 0; display: grid; gap: 2px; }
+.profil-ligne .nom { min-width: 0; font-size: 22px; font-weight: 600; overflow-wrap: anywhere; }
+.btn-danger { background: #ffe3e4; color: var(--faux-fonce); min-height: 52px; padding: 0 16px; border-radius: 16px; font-weight: 600; font-size: 17px; }
+.btn-danger.arme { background: var(--faux); color: #fff; }
+.porte { display: grid; gap: 18px; justify-items: center; text-align: center; }
+.porte .question { font-size: 44px; font-weight: 700; }
+.porte .ligne { justify-content: center; }
+.porte .ligne button { width: 90px; }
+
+#toast {
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 30;
+  transform: translate(-50%, 140%); opacity: 0; transition: transform .3s, opacity .3s;
+  background: var(--encre); color: #fff; font-size: 20px; font-weight: 600;
+  padding: 14px 22px; border-radius: 20px; box-shadow: var(--ombre); max-width: calc(100% - 32px); text-align: center;
+}
+#toast.visible { transform: translate(-50%, 0); opacity: 1; }
+#confettis { position: fixed; inset: 0; pointer-events: none; z-index: 20; }
+
+@media (max-width: 760px) {
+  .quiz { grid-template-columns: 1fr; align-content: start; }
+  .mini { max-height: 22vh; }
+}
+@media (max-width: 520px) {
+  .rond { width: 54px; height: 54px; font-size: 24px; }
+  .espace { width: 54px; }
+  .reponses { grid-template-columns: 1fr; }
+  .choix { min-height: 68px; }
+  .ligne-progres { grid-template-columns: 1fr auto; }
+  .ligne-progres .jauge { grid-column: 1 / -1; grid-row: 2; }
+  .consigne .drapeau { font-size: 36px; }
+  .ue .ico { font-size: 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div id="app"></div>
+<canvas id="confettis"></canvas>
+
+<script>
+/*DONNEES*/
+</script>
+<script>
+(() => {
+  "use strict";
+
+  // ---------- édition ----------
+  // « fr » = Voyage avec moi ; « nl » = Reis met mij (produite par build.py, dans nl/)
+  const EDITION = "fr";
+  const NL = EDITION === "nl";
+  const L = (fr, nl) => NL ? nl : fr;   // texte selon la langue de l'édition
+
+  // ---------- stockage ----------
+  const PREFIXE = L("vam_", "rmm_");
+  const lire = (cle, defaut) => { try { const v = localStorage.getItem(PREFIXE + cle); return v ? JSON.parse(v) : defaut; } catch (e) { return defaut; } };
+  const ecrire = (cle, val) => { try { localStorage.setItem(PREFIXE + cle, JSON.stringify(val)); } catch (e) {} };
+
+  // Numéro de version (MAJEUR.MINEUR.CORRECTIF) : à augmenter à chaque mise en ligne
+  const VERSION = "1.0.0";
+  let versionEnLigne = null;   // version publiée sur le site, lue dans version.json
+  const MAX_PROFILS = 6;
+  const ANIMAUX = ["🦁", "🐸", "🐼", "🦊", "🐰", "🐙", "🐢", "🦄", "🐶", "🐱", "🐵", "🐧", "🐨", "🐯", "🦖", "🐝"];
+  const COULEURS = ["#f2545b", "#ff8a3d", "#ffb627", "#22b573", "#3aa8e0", "#7176d6", "#d465c2"];
+
+  // ---------- les pays ----------
+  // PAYS_BRUTS et CARTES viennent de build.py (pays.txt et cartes.json)
+  const SANS_ARTICLE = ["Chypre", "Malte", "Cuba", "Haïti", "Madagascar", "Singapour", "Monaco", "Israël", "Oman", "Bahreïn", "Djibouti", "Maurice",
+    "Sao Tomé-et-Principe", "Trinité-et-Tobago", "Antigua-et-Barbuda", "Saint-Marin", "Saint-Christophe-et-Niévès", "Sainte-Lucie",
+    "Saint-Vincent-et-les-Grenadines", "Tonga", "Tuvalu", "Nauru", "Kiribati", "Samoa", "Andorre"];
+  const PLURIEL = ["Émirats arabes unis", "Philippines", "Maldives", "Comores", "Seychelles", "Bahamas", "États-Unis", "Pays-Bas", "Îles Marshall", "Îles Salomon", "Fidji", "Palaos"];
+  const MASCULIN_EN_E = ["Mexique", "Mozambique", "Cambodge", "Zimbabwe", "Belize", "Suriname"];
+  const FEMININ = ["Macédoine du Nord", "Corée du Nord", "Corée du Sud", "République démocratique du Congo"];
+  const article = nom => {
+    if (SANS_ARTICLE.includes(nom)) return "";
+    if (PLURIEL.includes(nom)) return "les";
+    if (/^[AEIOUYÉÈÊÎ]/i.test(nom) && !/^Y/.test(nom)) return "l'";
+    if (FEMININ.includes(nom)) return "la";
+    if (MASCULIN_EN_E.includes(nom)) return "le";
+    return /e$/.test(nom) ? "la" : "le";
+  };
+  // En néerlandais, l'article (de, het) vient de pays-nl.txt
+  const PAYS = PAYS_BRUTS.map(([code, cont, ue, nom, cap, naam, hoofdstad, lidwoord]) => NL
+    ? { code, cont, ue: !!ue, nom: naam, cap: hoofdstad, art: lidwoord }
+    : { code, cont, ue: !!ue, nom, cap, art: article(nom) });
+  const PAR_CODE = Object.fromEntries(PAYS.map(p => [p.code, p]));
+  const avecArticle = p => p.art === "l'" ? "l'" + p.nom : p.art ? p.art + " " + p.nom : p.nom;
+  const deArticle = p => NL ? "van " + avecArticle(p) : p.art === "la" ? "de la " + p.nom : p.art === "l'" ? "de l'" + p.nom : p.art === "le" ? "du " + p.nom : p.art === "les" ? "des " + p.nom : (/^[AEIOUÉÈ]/i.test(p.nom) ? "d'" : "de ") + p.nom;
+  const pluriel = p => NL ? p.art === "de" && !/Republiek|Congo/.test(p.nom) : p.art === "les";
+  const ouEst = p => L((pluriel(p) ? "Où sont " : "Où est ") + avecArticle(p) + " ?", (pluriel(p) ? "Waar liggen " : "Waar ligt ") + avecArticle(p) + "?");
+  const ouEstVille = p => L("Où est " + p.cap + " ?", "Waar ligt " + p.cap + "?");
+  const majuscule = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const drapeau = code => String.fromCodePoint(...[...code].map(c => 0x1F1E6 + c.charCodeAt(0) - 65));
+
+  const CONTINENTS = [
+    { id: "UE", nom: L("Union européenne", "Europese Unie"), emoji: "🇪🇺", c: "#2b4fbf", sous: L("Les 27 pays de l'Union", "De 27 landen van de Unie") },
+    { id: "EU", nom: L("Europe", "Europa"), emoji: "🏰", c: "#7176d6" },
+    { id: "AF", nom: L("Afrique", "Afrika"), emoji: "🦁", c: "#ff8a3d" },
+    { id: "AS", nom: L("Asie", "Azië"), emoji: "🐼", c: "#f2545b" },
+    { id: "AN", nom: L("Amérique du Nord", "Noord-Amerika"), emoji: "🦅", c: "#3aa8e0", sous: L("avec l'Amérique centrale", "met Midden-Amerika") },
+    { id: "AS2", nom: L("Amérique du Sud", "Zuid-Amerika"), emoji: "🦜", c: "#22b573" },
+    { id: "OC", nom: L("Océanie", "Oceanië"), emoji: "🦘", c: "#d465c2" },
+  ];
+  const CONT = Object.fromEntries(CONTINENTS.map(c => [c.id, c]));
+  const paysDe = id => PAYS.filter(p => id === "UE" ? p.ue : p.cont === id);
+
+  const JEUX = [
+    { id: "capitale", nom: L("Trouve la capitale", "Zoek de hoofdstad"), sous: L("Je vois le pays, je cherche sa capitale", "Ik zie het land en zoek de hoofdstad"), emoji: "🏙️", c: "#7176d6" },
+    { id: "pays", nom: L("Trouve le pays", "Zoek het land"), sous: L("Je vois la capitale, je cherche son pays", "Ik zie de hoofdstad en zoek het land"), emoji: "🚩", c: "#ff8a3d" },
+    { id: "carte", nom: L("Place les pays", "Plaats de landen"), sous: L("Touche le pays sur la carte", "Tik op het land op de kaart"), emoji: "📍", c: "#22b573" },
+    { id: "carteCap", nom: L("Place les capitales", "Plaats de hoofdsteden"), sous: L("Touche la ville sur la carte", "Tik op de stad op de kaart"), emoji: "⭐", c: "#d465c2" },
+  ];
+  const JEU = Object.fromEntries(JEUX.map(j => [j.id, j]));
+  const NOMBRES = [10, 20, "tout"];
+  const NIVEAUX = [{ n: 3, emoji: "🐣", nom: L("Facile", "Makkelijk") }, { n: 4, emoji: "🦊", nom: L("Moyen", "Gemiddeld") }, { n: 6, emoji: "🦉", nom: "Expert" }];
+
+  // ---------- état ----------
+  let profils = lire("profils", []);
+  let resultats = lire("resultats", []);
+  let connus = lire("connus", {});            // { profil: { "jeu:code": true (trouvé du premier coup) / false (à revoir) } }
+  let sonActif = lire("son", true);
+  let nombreChoisi = lire("nombre", 10);
+  let niveauChoisi = lire("niveau", 3);
+
+  const app = document.getElementById("app");
+  let ecran = "profils";
+  let profil = null;
+  let brouillon = null;
+  let contChoisi = null;
+  let jeuChoisi = null;
+  let partie = null;
+  let fin = null;
+  let porte = null;
+  let suppressionArmee = null;
+
+  // ---------- utilitaires ----------
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const melanger = t => { const a = t.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const sauverProfils = () => ecrire("profils", profils);
+  const sauverResultats = () => ecrire("resultats", resultats);
+  const sauverConnus = () => ecrire("connus", connus);
+  const connusDe = id => connus[id] || (connus[id] = {});
+  const aRevoir = (cont, jeu) => paysDe(cont).filter(p => connusDe(profil.id)[jeu + ":" + p.code] === false);
+  const maitrises = (cont, jeu) => paysDe(cont).filter(p => connusDe(profil.id)[jeu + ":" + p.code] === true).length;
+  const etoilesPour = (justes, total) => justes / total >= .9 ? 3 : justes / total >= .7 ? 2 : 1;
+  const meilleuresEtoiles = (cont, jeu) => Math.max(0, ...resultats.filter(r => r.profil === profil.id && r.cont === cont && r.jeu === jeu && !r.revoir).map(r => r.etoiles));
+  const etoilesContinent = cont => JEUX.reduce((s, j) => s + meilleuresEtoiles(cont, j.id), 0);
+  const dessinEtoiles = n => [0, 1, 2].map(i => `<span class="${i < n ? "" : "eteinte"}">⭐</span>`).join("");
+
+  // ---------- sons ----------
+  let audio = null;
+  function bip(type) {
+    if (!sonActif) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      const notes = type === "ok" ? [660, 880] : type === "ko" ? [300, 220] : [523, 659, 784, 1047];
+      notes.forEach((f, i) => {
+        const o = audio.createOscillator(), g = audio.createGain(), t = audio.currentTime + i * 0.09;
+        o.type = "sine"; o.frequency.value = f;
+        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.18, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+        o.connect(g).connect(audio.destination); o.start(t); o.stop(t + 0.18);
+      });
+    } catch (e) {}
+  }
+
+  // Petite fanfare pour les trois étoiles
+  function fanfare() {
+    if (!sonActif) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      const air = [[523, 0, .14], [523, .16, .14], [523, .32, .14], [659, .48, .3], [784, .82, .18], [659, 1.02, .14], [784, 1.18, .2], [1047, 1.42, .7]];
+      air.forEach(([f, d, l]) => {
+        [1, 2].forEach((mult, k) => {
+          const o = audio.createOscillator(), g = audio.createGain(), t = audio.currentTime + d;
+          o.type = k ? "sine" : "triangle"; o.frequency.value = f * mult;
+          g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(k ? 0.05 : 0.2, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + l);
+          o.connect(g).connect(audio.destination); o.start(t); o.stop(t + l + 0.05);
+        });
+      });
+    } catch (e) {}
+  }
+
+  // Phrase dite à voix haute, si les sons sont activés (utile pour les plus petits qui lisent encore peu)
+  function dire(texte) {
+    if (!sonActif || !window.speechSynthesis) return;
+    try {
+      const u = new SpeechSynthesisUtterance(texte);
+      const voix = speechSynthesis.getVoices();
+      u.lang = L("fr-BE", "nl-BE"); u.rate = .92; u.pitch = 1.15;
+      const v = voix.find(x => x.lang === u.lang) || voix.find(x => x.lang === L("fr-FR", "nl-NL")) || voix.find(x => x.lang.slice(0, 2) === u.lang.slice(0, 2));
+      if (v) { u.voice = v; u.lang = v.lang; }
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+
+  // ---------- confettis ----------
+  const toile = document.getElementById("confettis");
+  function confettis() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const ctx = toile.getContext("2d"), dpr = window.devicePixelRatio || 1;
+    toile.width = innerWidth * dpr; toile.height = innerHeight * dpr; ctx.scale(dpr, dpr);
+    const parts = Array.from({ length: 140 }, () => ({
+      x: Math.random() * innerWidth, y: -20 - Math.random() * innerHeight * .4,
+      vx: (Math.random() - .5) * 3, vy: 2 + Math.random() * 4, r: Math.random() * 6.28, vr: (Math.random() - .5) * .3,
+      c: COULEURS[Math.floor(Math.random() * COULEURS.length)], w: 8 + Math.random() * 8, h: 6 + Math.random() * 6
+    }));
+    const debut = performance.now();
+    (function pas(t) {
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      parts.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += .05; p.r += p.vr; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore(); });
+      if (t - debut < 2600) requestAnimationFrame(pas); else ctx.clearRect(0, 0, innerWidth, innerHeight);
+    })(debut);
+  }
+
+  // ---------- petits messages en bas de l'écran ----------
+  let minuteurToast = null;
+  function toast(texte) {
+    let t = document.getElementById("toast");
+    if (!t) { t = document.createElement("div"); t.id = "toast"; t.setAttribute("role", "status"); document.body.appendChild(t); }
+    t.textContent = texte; t.classList.add("visible");
+    clearTimeout(minuteurToast); minuteurToast = setTimeout(() => t.classList.remove("visible"), 3500);
+  }
+
+  // ---------- cartes ----------
+  // Une carte = le fond (pays qui ne sont pas dans le jeu) + un chemin par pays du jeu.
+  // Les tout petits pays (Malte, Monaco, îles…) ont en plus un rond à toucher.
+  const couleurDe = code => "c" + (CARTES.couleurs[code] || 0);
+  function svgCarte(contId, o = {}) {
+    const k = CARTES[contId], petits = new Set(k.petits);
+    const etat = o.etat || (() => "");
+    const pays = Object.entries(k.pays).map(([code, d]) => `<path class="pays ${couleurDe(code)} ${etat(code)}" data-c="${code}" d="${d}"/>`).join("");
+    const ronds = o.ronds === false ? "" : k.petits.map(code => { const [x, y] = k.noms[code]; return `<circle class="rond-pays ${etat(code)}" data-c="${code}" cx="${x}" cy="${y}" r="6"/>`; }).join("");
+    const anneau = o.anneau && (petits.has(o.anneau) || o.toujoursAnneau) ? (() => { const [x, y] = k.noms[o.anneau]; return `<circle class="anneau" cx="${x}" cy="${y}" r="${o.rayon || 26}"/>`; })() : "";
+    const villes = o.villes ? Object.entries(k.caps).map(([code, [x, y]]) => `<circle class="ville ${(o.etatVille || (() => ""))(code)}" data-v="${code}" cx="${x}" cy="${y}" r="5"/>`).join("") : "";
+    const etoile = o.etoile ? (() => { const [x, y] = k.caps[o.etoile]; return `<path class="etoile-ville" d="${etoileChemin(x, y, 16)}"/>`; })() : "";
+    return `<svg ${o.attrs || ""} viewBox="0 0 ${k.w} ${k.h}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <rect x="-5000" y="-5000" width="11000" height="11000" fill="var(--mer)"/>
+      <path class="fond" d="${k.fond}"/>${pays}${ronds}${villes}${anneau}${etoile}<g class="etiquettes"></g></svg>`;
+  }
+  function etoileChemin(x, y, r) {
+    let d = "";
+    for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * .45 : r; d += (i ? "L" : "M") + (x + Math.cos(a) * rr).toFixed(1) + "," + (y + Math.sin(a) * rr).toFixed(1); }
+    return d + "Z";
+  }
+
+  // ---------- écrans ----------
+  function barre(gauche, titre, droite) {
+    return `<div class="barre">${gauche || '<span class="espace"></span>'}<div class="titre">${titre || ""}</div>${droite || '<span class="espace"></span>'}</div>`;
+  }
+  const retour = (action, label) => `<button class="rond" data-a="${action}" aria-label="${label || L("Retour", "Terug")}">⬅️</button>`;
+  const avatarProfil = p => `<span class="rond" style="background:${p.couleur}" aria-hidden="true">${p.animal}</span>`;
+
+  function vueProfils() {
+    const tuiles = profils.map(p => `
+      <button class="tuile" style="--c:${p.couleur}" data-a="choisirProfil" data-id="${p.id}">
+        <span class="avatar">${p.animal}</span><span class="nom">${esc(p.nom)}</span>
+      </button>`).join("");
+    const ajout = profils.length < MAX_PROFILS ? `<button class="tuile ajout" data-a="nouveauProfil"><span class="avatar">+</span><span class="nom">${L("Nouveau", "Nieuw")}</span></button>` : "";
+    return `
+      <header class="titre-app">${L("Voyage avec moi", "Reis met mij")} 🌍</header>
+      <div class="centre">
+        <div class="entete"><h1>${L("Qui part en voyage ?", "Wie gaat er mee op reis?")}</h1><p>${profils.length ? L("Touche ton animal pour commencer", "Tik op je dier om te beginnen") : L("Crée ton profil pour commencer", "Maak je profiel om te beginnen")}</p></div>
+        <div class="grille-profils">${tuiles}${ajout}</div>
+      </div>
+      <div class="bas"><button class="lien-parents" data-a="ouvrirPorte">🔒 ${L("Espace parents", "Voor ouders")}</button></div>
+      <p class="copyright">© ${new Date().getFullYear()} Sillage Prod</p>
+      <p class="version">${L("Version", "Versie")} ${VERSION}${L("", "-NL")}</p>
+      ${versionEnLigne && versionEnLigne !== VERSION ? `<div class="bas"><button class="maj" data-a="mettreAJour">${L(`⬇️ Nouvelle version ${esc(versionEnLigne)} : touchez pour mettre à jour`, `⬇️ Nieuwe versie ${esc(versionEnLigne)}-NL: tik om bij te werken`)}</button></div>` : ""}`;
+  }
+
+  function vueNouveauProfil() {
+    const b = brouillon;
+    return `
+      ${barre(retour("versProfils"), `<h2>${L("Nouveau profil", "Nieuw profiel")}</h2>`)}
+      <div class="centre">
+        <div class="panneau">
+          <label class="etiquette" for="nomProfil">${L("Ton prénom", "Je voornaam")}</label>
+          <input id="nomProfil" type="text" maxlength="16" autocomplete="off" value="${esc(b.nom)}" placeholder="${L("Prénom", "Voornaam")}">
+          <div class="etiquette">${L("Ton animal", "Je dier")}</div>
+          <div class="choix-animaux">${ANIMAUX.map(a => `<button data-a="animal" data-v="${a}" aria-pressed="${a === b.animal}">${a}</button>`).join("")}</div>
+          <div class="etiquette">${L("Ta couleur", "Je kleur")}</div>
+          <div class="choix-couleurs">${COULEURS.map(c => `<button data-a="couleur" data-v="${c}" style="--c:${c}" aria-label="${L("Couleur", "Kleur")}" aria-pressed="${c === b.couleur}"></button>`).join("")}</div>
+          <button class="gros vert" data-a="creerProfil" id="btnCreer">${L("C'est moi ! ✓", "Dat ben ik! ✓")}</button>
+        </div>
+      </div>`;
+  }
+
+  function vueContinents() {
+    const ue = CONT.UE;
+    const tuiles = CONTINENTS.filter(c => c.id !== "UE").map(c => `
+      <button class="continent" style="--c:${c.c}" data-a="choisirCont" data-v="${c.id}">
+        <span class="ico">${c.emoji}</span><span class="nom">${c.nom}</span>
+        <span class="sous">${paysDe(c.id).length} ${L("pays", "landen")}${c.sous ? " · " + c.sous : ""}</span>
+        <span class="etoiles-mini">⭐ ${etoilesContinent(c.id)} / 12</span>
+      </button>`).join("");
+    return `
+      ${barre(retour("versProfils", L("Changer de profil", "Ander profiel")), `<h2>${L(`Bonjour ${esc(profil.nom)} ! Où allons-nous ?`, `Dag ${esc(profil.nom)}! Waar gaan we heen?`)}</h2>`, avatarProfil(profil))}
+      <div class="centre">
+        <button class="ue" data-a="choisirCont" data-v="UE">
+          <span class="ico">${ue.emoji}</span>
+          <span><span class="nom">${ue.nom}</span><span class="sous">${ue.sous}</span></span>
+          <span class="etoiles-mini">⭐ ${etoilesContinent("UE")} / 12</span>
+        </button>
+        <p class="titre-section">${L("Les continents", "De werelddelen")}</p>
+        <div class="continents">${tuiles}</div>
+        <div class="bas"><button class="gros blanc" data-a="versProgres">📈 ${L("Mes progrès", "Mijn vooruitgang")}</button></div>
+      </div>`;
+  }
+
+  function vueJeux() {
+    const c = CONT[contChoisi], n = paysDe(contChoisi).length;
+    const cartes = JEUX.map(j => `
+      <button class="mode" style="--c:${j.c}" data-a="choisirJeu" data-v="${j.id}">
+        <span class="ico">${j.emoji}</span><span class="nom">${j.nom}</span><span class="sous">${j.sous}</span>
+        <span class="sous">${dessinEtoiles(meilleuresEtoiles(contChoisi, j.id))} · ${maitrises(contChoisi, j.id)} / ${n}</span>
+      </button>`).join("");
+    return `
+      ${barre(retour("versContinents"), `<h2>${c.emoji} ${c.nom}</h2>`, avatarProfil(profil))}
+      <div class="centre">
+        <p class="note">${L("Choisis ton jeu", "Kies je spel")}</p>
+        <div class="modes">${cartes}</div>
+      </div>`;
+  }
+
+  function vueReglages() {
+    const j = JEU[jeuChoisi], n = paysDe(contChoisi).length, revoir = aRevoir(contChoisi, jeuChoisi).length;
+    const nombres = NOMBRES.filter(x => x === "tout" || x < n);
+    if (!nombres.includes(nombreChoisi)) nombreChoisi = nombres.includes(10) ? 10 : "tout";
+    const quiz = jeuChoisi === "capitale" || jeuChoisi === "pays";
+    return `
+      ${barre(retour("versJeux"), `<h2>${j.emoji} ${j.nom}</h2>`, avatarProfil(profil))}
+      <div class="centre">
+        <div class="reglages">
+          <div class="reglage">
+            <p class="note">${L("Combien de pays ?", "Hoeveel landen?")}</p>
+            <div class="durees" style="--n:${nombres.length}">${nombres.map(x => `<button class="duree" data-a="nombre" data-v="${x}" aria-pressed="${x === nombreChoisi}"><b>${x === "tout" ? n : x}</b><span>${x === "tout" ? L("tous les pays", "alle landen") : L("pays", "landen")}</span></button>`).join("")}</div>
+          </div>
+          ${quiz ? `<div class="reglage">
+            <p class="note">${L("Combien de réponses au choix ?", "Hoeveel antwoorden om uit te kiezen?")}</p>
+            <div class="durees">${NIVEAUX.map(v => `<button class="duree" data-a="niveau" data-v="${v.n}" aria-pressed="${v.n === niveauChoisi}"><b>${v.emoji} ${v.n}</b><span>${v.nom}</span></button>`).join("")}</div>
+          </div>` : ""}
+          <div class="bas">
+            <button class="gros vert" data-a="demarrer">${L("C'est parti ! 🚀", "Daar gaan we! 🚀")}</button>
+            ${revoir ? `<button class="gros blanc" data-a="demarrerRevoir">📝 ${L("Revoir mes erreurs", "Mijn fouten herhalen")} (${revoir})</button>` : ""}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // --- quiz : pays → capitale et capitale → pays ---
+  function vueQuiz() {
+    const q = partie.pile[partie.index], p = q.pays, cap = partie.jeu === "capitale";
+    const enonce = cap
+      ? `<span class="drapeau">${drapeau(p.code)}</span><span class="sujet">${esc(majuscule(avecArticle(p)))}</span>
+         <span class="question">${L("Quelle est sa capitale ?", "Wat is de hoofdstad?")} <button class="parler" data-a="parler" aria-label="${L("Écouter", "Luisteren")}">🔊</button></span>`
+      : `<span class="drapeau">🏙️</span><span class="sujet">${esc(p.cap)}</span>
+         <span class="question">${L("C'est la capitale de quel pays ?", "Van welk land is dit de hoofdstad?")} <button class="parler" data-a="parler" aria-label="${L("Écouter", "Luisteren")}">🔊</button></span>`;
+    const mini = svgCarte(partie.cont, cap
+      ? { attrs: 'class="mini"', etat: c => c === p.code ? "cible" : "", anneau: p.code, ronds: false, toujoursAnneau: false }
+      : { attrs: 'class="mini"', etoile: p.code, ronds: false });
+    const choix = q.choix.map(c => {
+      const etat = q.rates.includes(c.code) ? "raté" : q.trouve && c.code === p.code ? "bon" : "";
+      const texte = cap ? esc(c.cap) : `<span class="fl">${drapeau(c.code)}</span><span>${esc(c.nom)}</span>`;
+      return `<button class="choix ${etat}" data-a="repondre" data-v="${c.code}" ${etat || q.trouve ? "disabled" : ""}>${texte}</button>`;
+    }).join("");
+    const retourQ = q.trouve ? `<div class="retour-quiz"><span class="bulle ok">${esc(phraseBravo(q))}</span><button class="gros vert" data-a="suivant" id="suivant">${partie.index + 1 < partie.pile.length ? L("Suivant ➜", "Volgende ➜") : L("Terminer 🏁", "Klaar 🏁")}</button></div>`
+      : q.rates.length ? `<div class="retour-quiz"><span class="bulle ko">${esc(phraseRate(q))}</span></div>` : "";
+    return `
+      ${barre(retour("quitter", L("Arrêter", "Stoppen")), `<span class="pastille">${partie.index + 1} / ${partie.pile.length}</span>`, avatarProfil(profil))}
+      <div class="jeu">
+        <div class="quiz">
+          <div class="enonce">${enonce}${mini}</div>
+          <div class="reponses ${q.choix.length <= 3 ? "un" : ""}">${choix}</div>
+          ${retourQ}
+        </div>
+      </div>`;
+  }
+  const phraseBravo = q => NL ? (q.rates.length ? "Ja! " : "Goed zo! ") + q.pays.cap + " is de hoofdstad " + deArticle(q.pays) + "."
+    : (q.rates.length ? "Oui ! " : "Bravo ! ") + q.pays.cap + " est la capitale " + deArticle(q.pays) + ".";
+  const phraseRate = q => {
+    const r = PAR_CODE[q.rates[q.rates.length - 1]];
+    if (NL) return partie.jeu === "capitale" ? "Nee, " + r.cap + " is de hoofdstad " + deArticle(r) + ". Probeer opnieuw!" : "Nee, de hoofdstad " + deArticle(r) + " is " + r.cap + ". Probeer opnieuw!";
+    return partie.jeu === "capitale" ? "Non, " + r.cap + " est la capitale " + deArticle(r) + ". Essaie encore !" : "Non, la capitale " + deArticle(r) + ", c'est " + r.cap + ". Essaie encore !";
+  };
+  const questionParlee = q => partie.jeu === "capitale" ? L("Quelle est la capitale " + deArticle(q.pays) + " ?", "Wat is de hoofdstad " + deArticle(q.pays) + "?") : L(q.pays.cap + " est la capitale de quel pays ?", q.pays.cap + " is de hoofdstad van welk land?");
+
+  // --- carte : placer les pays ou les capitales ---
+  function vueCarte() {
+    const capitales = partie.jeu === "carteCap";
+    return `
+      ${barre(retour("quitter", L("Arrêter", "Stoppen")), `<span class="pastille">${Math.min(partie.index + 1, partie.pile.length)} / ${partie.pile.length}</span>`, avatarProfil(profil))}
+      <div class="jeu-carte">
+        <div class="consigne" id="consigne"></div>
+        <div class="boite-carte" id="boite">
+          ${svgCarte(partie.cont, capitales ? { attrs: 'id="carte"', villes: true, ronds: false } : { attrs: 'id="carte"' })}
+          <div class="zoom">
+            <button data-a="zoomPlus" aria-label="${L("Zoomer", "Inzoomen")}">+</button>
+            <button data-a="zoomMoins" aria-label="${L("Dézoomer", "Uitzoomen")}">−</button>
+            <button data-a="zoomTout" aria-label="${L("Toute la carte", "De hele kaart")}" style="font-size:24px">⟲</button>
+          </div>
+        </div>
+      </div>`;
+  }
+  function majConsigne(etat, texte) {
+    const el = document.getElementById("consigne"); if (!el) return;
+    const q = partie.pile[partie.index];
+    if (!q) return;
+    const p = q.pays, cap = partie.jeu === "carteCap";
+    const base = cap ? `${esc(ouEstVille(p))}<small>${esc(L("La capitale ", "De hoofdstad ") + deArticle(p))}</small>` : `${esc(ouEst(p))}<small>${L("Touche ce pays sur la carte", "Tik op dit land op de kaart")}</small>`;
+    el.className = "consigne " + (etat || "");
+    el.innerHTML = `<span class="drapeau">${cap ? "🏙️" : drapeau(p.code)}</span><span class="texte">${texte ? esc(texte) : base}</span><button class="parler" data-a="parler" aria-label="${L("Écouter", "Luisteren")}">🔊</button>`;
+  }
+
+  function vueFin() {
+    const f = fin, c = CONT[f.cont], j = JEU[f.jeu];
+    const titre = f.etoiles === 3 ? L("Champion", "Kampioen") : f.etoiles === 2 ? L("Très bien", "Heel goed") : L("Bien joué", "Goed gedaan");
+    const lignes = f.erreurs.map(p => `<li>${drapeau(p.code)} ${esc(p.nom)} → <b>${esc(p.cap)}</b></li>`).join("");
+    return `
+      ${barre(retour("versJeux"), `<h2>${c.emoji} ${j.nom}</h2>`, avatarProfil(profil))}
+      <div class="fin">
+        <div class="bravo">${titre}, ${esc(profil.nom)}${L(" !", "!")}</div>
+        <div class="etoiles">${dessinEtoiles(f.etoiles)}</div>
+        <p class="score-legende">${L(`${f.justes} sur ${f.total} du premier coup`, `${f.justes} van de ${f.total} in één keer juist`)}</p>
+        ${lignes ? `<div class="erreurs"><h3>📝 ${L("À revoir", "Nog eens oefenen")}</h3><ul>${lignes}</ul></div>` : `<p class="score-legende">${L("Aucune erreur, tout juste ! 🎉", "Geen enkele fout, alles juist! 🎉")}</p>`}
+        <div class="actions">
+          ${lignes ? `<button class="gros bleu" data-a="demarrerRevoir">📝 ${L("Revoir mes erreurs", "Mijn fouten herhalen")}</button>` : ""}
+          <button class="gros vert" data-a="demarrer">🔁 ${L("Rejouer", "Opnieuw")}</button>
+          <button class="gros blanc" data-a="versJeux">🎲 ${L("Autre jeu", "Ander spel")}</button>
+        </div>
+      </div>`;
+  }
+
+  function vueProgres() {
+    const blocs = CONTINENTS.map(c => {
+      const n = paysDe(c.id).length;
+      const lignes = JEUX.map(j => {
+        const m = maitrises(c.id, j.id);
+        return `<div class="ligne-progres"><span>${j.emoji} ${j.nom}</span><span class="jauge"><i style="width:${Math.round(m / n * 100)}%"></i></span><span class="compte">${m} / ${n} · ${dessinEtoiles(meilleuresEtoiles(c.id, j.id))}</span></div>`;
+      }).join("");
+      return `<div class="carte-progres" style="--c:${c.c}"><h3>${c.emoji} ${c.nom}</h3>${lignes}</div>`;
+    }).join("");
+    return `
+      ${barre(retour("versContinents"), `<h2>📈 ${L("Mes progrès", "Mijn vooruitgang")}</h2>`, avatarProfil(profil))}
+      <div class="progres">
+        <p class="note">${L("La barre verte montre les pays que tu as trouvés du premier coup la dernière fois.", "De groene balk toont de landen die je de vorige keer in één keer juist had.")}</p>
+        ${blocs}
+      </div>`;
+  }
+
+  function vuePorte() {
+    return `
+      ${barre(retour("versProfils"), `<h2>${L("Espace parents", "Voor ouders")}</h2>`)}
+      <div class="centre"><div class="panneau porte">
+        <p class="etiquette">${L("Pour entrer, réponds à cette question :", "Beantwoord deze vraag om binnen te gaan:")}</p>
+        <div class="question">${porte.a} × ${porte.b} = ?</div>
+        <div class="ligne">${porte.choix.map(c => `<button class="gros blanc" data-a="porteRep" data-v="${c}">${c}</button>`).join("")}</div>
+      </div></div>`;
+  }
+
+  function vueParents() {
+    const lignesProfils = profils.map(p => {
+      const n = resultats.filter(r => r.profil === p.id).length;
+      return `
+        <div class="profil-ligne">
+          <span class="rond" style="background:${p.couleur}">${p.animal}</span>
+          <span class="qui"><span class="nom">${esc(p.nom)}</span><span class="aide">${L(`${n} partie${n > 1 ? "s" : ""} jouée${n > 1 ? "s" : ""}`, `${n} ${n === 1 ? "spel" : "spellen"} gespeeld`)}</span></span>
+          <button class="btn-danger ${suppressionArmee === p.id ? "arme" : ""}" data-a="supprimerProfil" data-id="${p.id}">${suppressionArmee === p.id ? L("Toucher encore pour supprimer", "Nog eens tikken om te wissen") : L("🗑️ Supprimer", "🗑️ Wissen")}</button>
+        </div>`;
+    }).join("") || `<p class="aide">${L("Aucun profil pour l'instant.", "Nog geen profielen.")}</p>`;
+    return `
+      ${barre(retour("versProfils"), `<h2>${L("Espace parents", "Voor ouders")}</h2>`)}
+      <div class="parents">
+        <section class="panneau">
+          <h3>${L("Comment ça marche ?", "Hoe werkt het?")}</h3>
+          <p class="aide">${L("Votre enfant choisit l'Union européenne ou un continent, puis un des quatre jeux : trouver la capitale d'un pays, trouver le pays d'une capitale, placer les pays sur la carte ou placer les capitales. Il n'y a pas de chrono : on prend le temps qu'il faut.",
+            "Uw kind kiest de Europese Unie of een werelddeel, en dan een van de vier spellen: de hoofdstad van een land zoeken, het land van een hoofdstad zoeken, de landen op de kaart plaatsen of de hoofdsteden plaatsen. Er is geen klok: je neemt de tijd die je nodig hebt.")}</p>
+          <p class="aide">${L("Une erreur n'arrête rien : l'enfant réessaie jusqu'à trouver, et l'app lui dit à quoi correspond sa mauvaise réponse. Après deux essais ratés sur la carte, le bon endroit clignote. Les pays manqués se retrouvent dans « Revoir mes erreurs ».",
+            "Een fout houdt niets tegen: het kind probeert opnieuw tot het juist is, en de app zegt waar het verkeerde antwoord bij hoort. Na twee mislukte pogingen op de kaart knippert de juiste plek. Gemiste landen komen terug in « Mijn fouten herhalen ».")}</p>
+          <p class="aide">${L("Le bouton 🔊 lit la question à voix haute, pour les plus jeunes. Sur la carte, on zoome avec deux doigts ou les boutons + et −, et on se déplace en glissant un doigt.",
+            "De knop 🔊 leest de vraag voor, voor de jongsten. Op de kaart zoom je in met twee vingers of met de knoppen + en −, en je verschuift de kaart met één vinger.")}</p>
+          <p class="aide">${L(`${PAYS.length} pays : les 193 membres de l'ONU, plus le Vatican et le Kosovo. Les résultats restent sur cet appareil.`,
+            `${PAYS.length} landen: de 193 leden van de VN, plus Vaticaanstad en Kosovo. De resultaten blijven op dit toestel.`)}</p>
+        </section>
+        <section class="panneau">
+          <h3>${L("Son et voix", "Geluid en stem")}</h3>
+          <div class="ligne"><button class="gros petit ${sonActif ? "vert" : "blanc"}" data-a="son">${sonActif ? L("🔊 Sons activés", "🔊 Geluid aan") : L("🔇 Sons coupés", "🔇 Geluid uit")}</button></div>
+        </section>
+        <section class="panneau">
+          <h3>${L("Profils", "Profielen")}</h3>
+          ${lignesProfils}
+        </section>
+      </div>`;
+  }
+
+  // ---------- rendu ----------
+  function afficher() {
+    const vues = { profils: vueProfils, nouveau: vueNouveauProfil, continents: vueContinents, jeux: vueJeux, reglages: vueReglages,
+      quiz: vueQuiz, carte: vueCarte, fin: vueFin, progres: vueProgres, porte: vuePorte, parents: vueParents };
+    app.classList.toggle("plein", ecran === "carte");
+    app.innerHTML = vues[ecran]();
+    if (ecran === "carte") preparerCarte();
+    if (ecran === "nouveau") {
+      const champ = document.getElementById("nomProfil");
+      const maj = () => { brouillon.nom = champ.value; document.getElementById("btnCreer").disabled = !champ.value.trim(); };
+      champ.addEventListener("input", maj); maj();
+    }
+    if (ecran === "quiz") { const s = document.getElementById("suivant"); if (s) s.focus({ preventScroll: true }); }
+  }
+  const aller = e => { ecran = e; window.scrollTo(0, 0); afficher(); };
+
+  // ---------- partie ----------
+  function demarrer(revoir) {
+    const tous = paysDe(contChoisi);
+    let pile = revoir ? melanger(aRevoir(contChoisi, jeuChoisi)) : melanger(tous);
+    if (!revoir && nombreChoisi !== "tout") pile = pile.slice(0, nombreChoisi);
+    if (!pile.length) return;
+    const quiz = jeuChoisi === "capitale" || jeuChoisi === "pays";
+    partie = {
+      cont: contChoisi, jeu: jeuChoisi, revoir: !!revoir, index: 0, justes: 0, erreurs: [],
+      pile: pile.map(p => ({
+        pays: p, rates: [], trouve: false,
+        choix: quiz ? melanger([p, ...melanger(tous.filter(x => x.code !== p.code && x.cap !== p.cap)).slice(0, Math.min(niveauChoisi, tous.length) - 1)]) : null
+      }))
+    };
+    aller(quiz ? "quiz" : "carte");
+    if (quiz) dire(questionParlee(partie.pile[0]));
+  }
+
+  // un pays trouvé : du premier coup (connu) ou après une erreur (à revoir)
+  function noter(q) {
+    const premier = !q.rates.length && !q.aide;
+    if (premier) partie.justes++; else partie.erreurs.push(q.pays);
+    connusDe(profil.id)[partie.jeu + ":" + q.pays.code] = premier; sauverConnus();
+  }
+
+  function terminer() {
+    const total = partie.pile.length, etoiles = etoilesPour(partie.justes, total);
+    fin = { cont: partie.cont, jeu: partie.jeu, justes: partie.justes, total, etoiles, erreurs: partie.erreurs };
+    resultats.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), profil: profil.id, cont: partie.cont, jeu: partie.jeu, total, justes: partie.justes, etoiles, revoir: partie.revoir, date: new Date().toISOString() });
+    sauverResultats();
+    partie = null;
+    aller("fin");
+    confettis();
+    if (etoiles === 3) fanfare(); else bip("fin");
+    dire(etoiles === 3 ? L("Champion ! Trois étoiles !", "Kampioen! Drie sterren!") : etoiles === 2 ? L("Très bien ! Deux étoiles.", "Heel goed! Twee sterren.") : L("Bien joué ! Continue comme ça.", "Goed gedaan! Doe zo verder."));
+  }
+
+  // --- quiz ---
+  function repondre(code) {
+    const q = partie.pile[partie.index];
+    if (q.trouve) return;
+    if (code === q.pays.code) {
+      q.trouve = true; noter(q); bip("ok");
+      afficher(); dire(phraseBravo(q));
+    } else {
+      q.rates.push(code); bip("ko");
+      afficher(); dire(phraseRate(q));
+    }
+  }
+  function suivant() {
+    if (partie.index + 1 >= partie.pile.length) return terminer();
+    partie.index++;
+    afficher();
+    dire(questionParlee(partie.pile[partie.index]));
+  }
+
+  // --- carte : zoom, déplacement, toucher ---
+  let vue = null, carteInfo = null, minuteurCarte = null;
+  function preparerCarte() {
+    const svg = document.getElementById("carte"), k = CARTES[partie.cont];
+    carteInfo = { svg, k, etiq: svg.querySelector(".etiquettes") };
+    // On garde le cadrage d'une question à l'autre (même partie)
+    if (!vue || vue.cont !== partie.cont || vue.partie !== partie) vue = { cont: partie.cont, partie, x: 0, y: 0, w: k.w, h: k.h };
+    // pays déjà trouvés pendant cette partie
+    partie.pile.slice(0, partie.index).forEach(q => marquerTrouve(q.pays.code, false));
+    if (partie.jeu === "carteCap") {
+      const dansLeJeu = new Set(partie.pile.map(q => q.pays.code));
+      svg.querySelectorAll(".ville").forEach(v => { if (!dansLeJeu.has(v.dataset.v)) v.remove(); });
+    }
+    appliquerVue();
+    majConsigne();
+    brancherGestes(svg);
+    dire(partie.jeu === "carteCap" ? ouEstVille(partie.pile[partie.index].pays) : ouEst(partie.pile[partie.index].pays));
+  }
+  function appliquerVue() {
+    const { svg, k } = carteInfo;
+    // pas trop loin du bord
+    vue.w = Math.min(k.w, Math.max(k.w / 10, vue.w)); vue.h = vue.w * k.h / k.w;
+    vue.x = Math.min(k.w - vue.w * .3, Math.max(-vue.w * .7, vue.x));
+    vue.y = Math.min(k.h - vue.h * .3, Math.max(-vue.h * .7, vue.y));
+    svg.setAttribute("viewBox", `${vue.x} ${vue.y} ${vue.w} ${vue.h}`);
+    // les ronds et les noms gardent la même taille à l'écran
+    const r = svg.getBoundingClientRect();
+    const echelle = r.width && r.height ? Math.max(vue.w / r.width, vue.h / r.height) : 1;
+    svg.querySelectorAll(".ville").forEach(c => c.setAttribute("r", 7 * echelle));
+    svg.querySelectorAll(".rond-pays").forEach(c => c.setAttribute("r", 12 * echelle));
+    carteInfo.etiq.setAttribute("font-size", 16 * echelle);
+    carteInfo.etiq.setAttribute("stroke-width", 4 * echelle);
+  }
+  function versCarte(cx, cy) {
+    const { svg } = carteInfo, pt = svg.createSVGPoint(); pt.x = cx; pt.y = cy;
+    return pt.matrixTransform(svg.getScreenCTM().inverse());
+  }
+  function zoomer(f, cx, cy) {
+    const r = carteInfo.svg.getBoundingClientRect();
+    const centre = cx == null ? versCarte(r.left + r.width / 2, r.top + r.height / 2) : versCarte(cx, cy);
+    const w0 = vue.w;
+    vue.w = Math.min(carteInfo.k.w, Math.max(carteInfo.k.w / 10, vue.w / f));
+    const k = vue.w / w0;
+    vue.x = centre.x - (centre.x - vue.x) * k; vue.y = centre.y - (centre.y - vue.y) * k;
+    appliquerVue();
+  }
+  function brancherGestes(svg) {
+    const doigts = new Map();
+    let geste = null;
+    svg.addEventListener("pointerdown", e => {
+      svg.setPointerCapture(e.pointerId);
+      doigts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (doigts.size === 1) geste = { type: "touche", x0: e.clientX, y0: e.clientY, vx: vue.x, vy: vue.y };
+      else if (doigts.size === 2) {
+        const [a, b] = [...doigts.values()];
+        geste = { type: "pince", d0: Math.hypot(a.x - b.x, a.y - b.y), w0: vue.w, c: versCarte((a.x + b.x) / 2, (a.y + b.y) / 2), vx: vue.x, vy: vue.y };
+      }
+    });
+    svg.addEventListener("pointermove", e => {
+      if (!doigts.has(e.pointerId) || !geste) return;
+      doigts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      const r = svg.getBoundingClientRect(), echelle = Math.max(vue.w / r.width, vue.h / r.height);
+      if (geste.type !== "pince" && doigts.size === 1) {
+        const dx = e.clientX - geste.x0, dy = e.clientY - geste.y0;
+        if (geste.type === "touche" && Math.hypot(dx, dy) > 10) geste.type = "glisse";
+        if (geste.type === "glisse") { vue.x = geste.vx - dx * echelle; vue.y = geste.vy - dy * echelle; appliquerVue(); }
+      } else if (geste.type === "pince" && doigts.size === 2) {
+        const [a, b] = [...doigts.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+        vue.w = geste.w0 * geste.d0 / Math.max(d, 1); vue.h = vue.w * carteInfo.k.h / carteInfo.k.w;
+        vue.w = Math.min(carteInfo.k.w, Math.max(carteInfo.k.w / 10, vue.w));
+        const k = vue.w / geste.w0;
+        vue.x = geste.c.x - (geste.c.x - geste.vx) * k; vue.y = geste.c.y - (geste.c.y - geste.vy) * k;
+        appliquerVue();
+        // garder le point entre les deux doigts sous les doigts
+        const m = versCarte((a.x + b.x) / 2, (a.y + b.y) / 2);
+        vue.x += geste.c.x - m.x; vue.y += geste.c.y - m.y; appliquerVue();
+      }
+    });
+    const lacher = e => {
+      if (!doigts.has(e.pointerId)) return;
+      doigts.delete(e.pointerId);
+      if (geste && geste.type === "touche" && e.type === "pointerup") toucherCarte(e.clientX, e.clientY);
+      if (doigts.size === 0) geste = null;
+      else if (doigts.size === 1) { const [a] = [...doigts.values()]; geste = { type: "glisse", x0: a.x, y0: a.y, vx: vue.x, vy: vue.y }; }
+    };
+    svg.addEventListener("pointerup", lacher);
+    svg.addEventListener("pointercancel", lacher);
+    svg.addEventListener("wheel", e => { e.preventDefault(); zoomer(e.deltaY < 0 ? 1.25 : 0.8, e.clientX, e.clientY); }, { passive: false });
+  }
+  // le rond (petit pays ou ville) le plus proche du doigt, à moins de « portee » px
+  function plusProche(selecteur, attr, cx, cy, portee = 30) {
+    let meilleur = null, dmin = portee;
+    carteInfo.svg.querySelectorAll(selecteur).forEach(el => {
+      const b = el.getBoundingClientRect(), d = Math.hypot(b.left + b.width / 2 - cx, b.top + b.height / 2 - cy);
+      if (d < dmin) { dmin = d; meilleur = el.getAttribute(attr); }
+    });
+    return meilleur;
+  }
+  function toucherCarte(cx, cy) {
+    if (!partie || partie.attente) return;
+    const q = partie.pile[partie.index];
+    let code = null;
+    if (partie.jeu === "carteCap") code = plusProche(".ville:not(.trouve)", "data-v", cx, cy);
+    else {
+      // le pays ou le rond touché ; en mer, le petit pays le plus proche
+      const el = document.elementFromPoint(cx, cy), c = el && el.closest && el.closest("[data-c]");
+      // des ronds qui se chevauchent (Caraïbes) : celui dont le centre est le plus proche
+      code = c && c.matches(".rond-pays") ? plusProche(".rond-pays:not(.trouve)", "data-c", cx, cy) || c.dataset.c : c ? c.dataset.c : null;
+      if (!code) code = plusProche(".rond-pays:not(.trouve)", "data-c", cx, cy);
+    }
+    if (!code) return;
+    if (partie.pile.slice(0, partie.index).some(x => x.pays.code === code)) return; // déjà trouvé
+    if (code === q.pays.code) {
+      noter(q); bip("ok");
+      marquerTrouve(code, true);
+      const p = q.pays;
+      majConsigne("ok", partie.jeu === "carteCap" ? L(`Bravo ! Voici ${p.cap}, la capitale ${deArticle(p)}.`, `Goed zo! Hier ligt ${p.cap}, de hoofdstad ${deArticle(p)}.`) : L(`Bravo ! ${majuscule(avecArticle(p))}, c'est ici !`, `Goed zo! Hier ${pluriel(p) ? "liggen" : "ligt"} ${avecArticle(p)}!`));
+      dire(L("Bravo !", "Goed zo!"));
+      partie.attente = true;
+      clearTimeout(minuteurCarte);
+      minuteurCarte = setTimeout(() => {
+        if (!partie) return;
+        partie.attente = false;
+        if (partie.index + 1 >= partie.pile.length) return terminer();
+        partie.index++;
+        document.querySelector(".pastille").textContent = (partie.index + 1) + " / " + partie.pile.length;
+        majConsigne();
+        const n = partie.pile[partie.index].pays;
+        dire(partie.jeu === "carteCap" ? ouEstVille(n) : ouEst(n));
+      }, 1600);
+    } else {
+      q.rates.push(code); bip("ko");
+      const r = PAR_CODE[code];
+      const texte = partie.jeu === "carteCap" ? L(`Non, ça c'est ${r.cap}, la capitale ${deArticle(r)}. Essaie encore !`, `Nee, dat is ${r.cap}, de hoofdstad ${deArticle(r)}. Probeer opnieuw!`)
+        : L(`Non, ça c'est ${avecArticle(r)}. Essaie encore !`, `Nee, dat is ${avecArticle(r)}. Probeer opnieuw!`);
+      majConsigne("ko", texte); dire(texte);
+      montrerErreur(code);
+      // un peu d'aide après deux essais
+      if (q.rates.length >= 2) montrerIndice(q.pays.code);
+    }
+  }
+  function etiquette(x, y, texte, classe) {
+    const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    t.setAttribute("x", x); t.setAttribute("y", y); t.setAttribute("class", "etiq " + (classe || "")); t.textContent = texte;
+    carteInfo.etiq.appendChild(t); return t;
+  }
+  function marquerTrouve(code, nouveau) {
+    const { svg, k } = carteInfo, p = PAR_CODE[code];
+    if (partie.jeu === "carteCap") {
+      const v = svg.querySelector(`.ville[data-v="${code}"]`); if (v) { v.classList.remove("indice", "mauvais"); v.classList.add("trouve"); }
+      const [x, y] = k.caps[code]; const t = etiquette(x, y, p.cap); t.setAttribute("dy", "-1.1em");
+    } else {
+      svg.querySelectorAll(`[data-c="${code}"]`).forEach(el => { el.classList.remove("indice", "mauvais"); el.classList.add("trouve"); });
+      const [x, y] = k.noms[code]; const t = etiquette(x, y, p.nom); if (k.petits.includes(code)) t.setAttribute("dy", "-1.1em");
+    }
+    svg.querySelectorAll(".pays.indice").forEach(el => el.classList.remove("indice"));
+  }
+  function montrerErreur(code) {
+    const { svg, k } = carteInfo, p = PAR_CODE[code];
+    const els = partie.jeu === "carteCap" ? svg.querySelectorAll(`.ville[data-v="${code}"]`) : svg.querySelectorAll(`[data-c="${code}"]`);
+    els.forEach(el => el.classList.add("mauvais"));
+    const [x, y] = partie.jeu === "carteCap" ? k.caps[code] : k.noms[code];
+    const t = etiquette(x, y, partie.jeu === "carteCap" ? p.cap : p.nom, "ko");
+    if (partie.jeu === "carteCap") t.setAttribute("dy", "-1.1em");
+    setTimeout(() => { els.forEach(el => el.classList.remove("mauvais")); t.remove(); }, 1800);
+  }
+  function montrerIndice(code) {
+    const { svg } = carteInfo;
+    if (partie.jeu === "carteCap") {
+      // d'abord le pays de la capitale, puis la ville elle-même
+      svg.querySelectorAll(`.pays[data-c="${code}"]`).forEach(el => el.classList.add("indice"));
+      if (partie.pile[partie.index].rates.length >= 3) svg.querySelectorAll(`.ville[data-v="${code}"]`).forEach(el => el.classList.add("indice"));
+    } else svg.querySelectorAll(`[data-c="${code}"]`).forEach(el => el.classList.add("indice"));
+  }
+
+  // ---------- actions ----------
+  const actions = {
+    versProfils() { profil = null; suppressionArmee = null; aller("profils"); },
+    choisirProfil(el) { profil = profils.find(p => p.id === el.dataset.id); aller("continents"); },
+    nouveauProfil() { brouillon = { nom: "", animal: ANIMAUX[profils.length % ANIMAUX.length], couleur: COULEURS[profils.length % COULEURS.length] }; aller("nouveau"); },
+    animal(el) { brouillon.animal = el.dataset.v; afficher(); },
+    couleur(el) { brouillon.couleur = el.dataset.v; afficher(); },
+    creerProfil() {
+      const nom = brouillon.nom.trim(); if (!nom) return;
+      profil = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), nom, animal: brouillon.animal, couleur: brouillon.couleur };
+      profils.push(profil); sauverProfils(); aller("continents");
+    },
+    versContinents() { aller("continents"); },
+    versProgres() { aller("progres"); },
+    choisirCont(el) { contChoisi = el.dataset.v; aller("jeux"); },
+    versJeux() { partie = null; aller("jeux"); },
+    choisirJeu(el) { jeuChoisi = el.dataset.v; aller("reglages"); },
+    nombre(el) { nombreChoisi = el.dataset.v === "tout" ? "tout" : Number(el.dataset.v); ecrire("nombre", nombreChoisi); afficher(); },
+    niveau(el) { niveauChoisi = Number(el.dataset.v); ecrire("niveau", niveauChoisi); afficher(); },
+    demarrer() { demarrer(false); },
+    demarrerRevoir() { demarrer(true); },
+    repondre(el) { repondre(el.dataset.v); },
+    suivant() { suivant(); },
+    parler() {
+      if (!partie) return;
+      const q = partie.pile[partie.index];
+      if (ecran === "quiz") dire(questionParlee(q));
+      else dire(partie.jeu === "carteCap" ? ouEstVille(q.pays) + L(" C'est la capitale ", " Het is de hoofdstad ") + deArticle(q.pays) + "." : ouEst(q.pays));
+    },
+    quitter() { clearTimeout(minuteurCarte); partie = null; try { speechSynthesis.cancel(); } catch (e) {} aller("reglages"); },
+    zoomPlus() { zoomer(1.5); },
+    zoomMoins() { zoomer(1 / 1.5); },
+    zoomTout() { vue.x = 0; vue.y = 0; vue.w = carteInfo.k.w; appliquerVue(); },
+    ouvrirPorte() {
+      const a = 3 + Math.floor(Math.random() * 7), b = 3 + Math.floor(Math.random() * 7), bon = a * b;
+      const choix = new Set([bon]);
+      while (choix.size < 3) choix.add(bon + (Math.floor(Math.random() * 9) - 4) || bon + 5);
+      porte = { a, b, bon, choix: melanger([...choix]) };
+      aller("porte");
+    },
+    porteRep(el) { if (Number(el.dataset.v) === porte.bon) aller("parents"); else actions.ouvrirPorte(); },
+    supprimerProfil(el) {
+      const id = el.dataset.id;
+      if (suppressionArmee !== id) { suppressionArmee = id; return afficher(); }
+      profils = profils.filter(p => p.id !== id); resultats = resultats.filter(r => r.profil !== id); delete connus[id];
+      sauverProfils(); sauverResultats(); sauverConnus(); suppressionArmee = null; afficher();
+    },
+    son() { sonActif = !sonActif; ecrire("son", sonActif); afficher(); },
+    mettreAJour() { location.reload(); }
+  };
+
+  app.addEventListener("click", e => {
+    const el = e.target.closest("[data-a]");
+    if (!el || el.disabled) return;
+    const f = actions[el.dataset.a]; if (f) f(el);
+  });
+  addEventListener("resize", () => { if (ecran === "carte" && carteInfo) appliquerVue(); });
+  if (window.speechSynthesis) try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => {}; } catch (e) {}
+
+  async function verifierVersion() {
+    try {
+      const rep = await fetch("version.json?t=" + Date.now(), { cache: "no-store" });
+      const d = await rep.json();
+      versionEnLigne = String(d.version);
+      if (ecran === "profils") afficher();
+    } catch (e) {}
+  }
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && !partie) verifierVersion(); });
+
+  afficher();
+  verifierVersion();
+})();
+</script>

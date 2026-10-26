@@ -1,0 +1,196 @@
+# Édition néerlandaise « Reis met mij » : code|naam|hoofdstad|lidwoord (de, het ou rien)
+AT|Oostenrijk|Wenen|
+BE|België|Brussel|
+BG|Bulgarije|Sofia|
+HR|Kroatië|Zagreb|
+CY|Cyprus|Nicosia|
+CZ|Tsjechië|Praag|
+DK|Denemarken|Kopenhagen|
+EE|Estland|Tallinn|
+FI|Finland|Helsinki|
+FR|Frankrijk|Parijs|
+DE|Duitsland|Berlijn|
+GR|Griekenland|Athene|
+HU|Hongarije|Boedapest|
+IE|Ierland|Dublin|
+IT|Italië|Rome|
+LV|Letland|Riga|
+LT|Litouwen|Vilnius|
+LU|Luxemburg|Luxemburg|
+MT|Malta|Valletta|
+NL|Nederland|Amsterdam|
+PL|Polen|Warschau|
+PT|Portugal|Lissabon|
+RO|Roemenië|Boekarest|
+SK|Slowakije|Bratislava|
+SI|Slovenië|Ljubljana|
+ES|Spanje|Madrid|
+SE|Zweden|Stockholm|
+AL|Albanië|Tirana|
+AD|Andorra|Andorra la Vella|
+BY|Belarus|Minsk|
+BA|Bosnië en Herzegovina|Sarajevo|
+IS|IJsland|Reykjavik|
+XK|Kosovo|Pristina|
+LI|Liechtenstein|Vaduz|
+MK|Noord-Macedonië|Skopje|
+MD|Moldavië|Chisinau|
+MC|Monaco|Monaco|
+ME|Montenegro|Podgorica|
+NO|Noorwegen|Oslo|
+GB|Verenigd Koninkrijk|Londen|het
+RU|Rusland|Moskou|
+SM|San Marino|San Marino|
+RS|Servië|Belgrado|
+CH|Zwitserland|Bern|
+UA|Oekraïne|Kyiv|
+VA|Vaticaanstad|Vaticaanstad|
+DZ|Algerije|Algiers|
+AO|Angola|Luanda|
+BJ|Benin|Porto-Novo|
+BW|Botswana|Gaborone|
+BF|Burkina Faso|Ouagadougou|
+BI|Burundi|Gitega|
+CV|Kaapverdië|Praia|
+CM|Kameroen|Yaoundé|
+CF|Centraal-Afrikaanse Republiek|Bangui|de
+TD|Tsjaad|N'Djamena|
+KM|Comoren|Moroni|de
+CG|Congo|Brazzaville|
+CD|Democratische Republiek Congo|Kinshasa|de
+CI|Ivoorkust|Yamoussoukro|
+DJ|Djibouti|Djibouti|
+EG|Egypte|Caïro|
+GQ|Equatoriaal-Guinea|Malabo|
+ER|Eritrea|Asmara|
+SZ|Eswatini|Mbabane|
+ET|Ethiopië|Addis Abeba|
+GA|Gabon|Libreville|
+GM|Gambia|Banjul|
+GH|Ghana|Accra|
+GN|Guinee|Conakry|
+GW|Guinee-Bissau|Bissau|
+KE|Kenia|Nairobi|
+LS|Lesotho|Maseru|
+LR|Liberia|Monrovia|
+LY|Libië|Tripoli|
+MG|Madagaskar|Antananarivo|
+MW|Malawi|Lilongwe|
+ML|Mali|Bamako|
+MR|Mauritanië|Nouakchott|
+MU|Mauritius|Port Louis|
+MA|Marokko|Rabat|
+MZ|Mozambique|Maputo|
+NA|Namibië|Windhoek|
+NE|Niger|Niamey|
+NG|Nigeria|Abuja|
+RW|Rwanda|Kigali|
+ST|Sao Tomé en Principe|São Tomé|
+SN|Senegal|Dakar|
+SC|Seychellen|Victoria|de
+SL|Sierra Leone|Freetown|
+SO|Somalië|Mogadishu|
+ZA|Zuid-Afrika|Pretoria|
+SS|Zuid-Soedan|Juba|
+SD|Soedan|Khartoem|
+TZ|Tanzania|Dodoma|
+TG|Togo|Lomé|
+TN|Tunesië|Tunis|
+UG|Oeganda|Kampala|
+ZM|Zambia|Lusaka|
+ZW|Zimbabwe|Harare|
+AF|Afghanistan|Kaboel|
+AM|Armenië|Jerevan|
+AZ|Azerbeidzjan|Bakoe|
+BH|Bahrein|Manama|
+BD|Bangladesh|Dhaka|
+BT|Bhutan|Thimphu|
+BN|Brunei|Bandar Seri Begawan|
+KH|Cambodja|Phnom Penh|
+CN|China|Peking|
+GE|Georgië|Tbilisi|
+IN|India|New Delhi|
+ID|Indonesië|Jakarta|
+IR|Iran|Teheran|
+IQ|Irak|Bagdad|
+IL|Israël|Jeruzalem|
+JP|Japan|Tokio|
+JO|Jordanië|Amman|
+KZ|Kazachstan|Astana|
+KW|Koeweit|Koeweit|
+KG|Kirgizië|Bisjkek|
+LA|Laos|Vientiane|
+LB|Libanon|Beiroet|
+MY|Maleisië|Kuala Lumpur|
+MV|Malediven|Malé|de
+MN|Mongolië|Ulaanbaatar|
+MM|Myanmar|Naypyidaw|
+NP|Nepal|Kathmandu|
+KP|Noord-Korea|Pyongyang|
+OM|Oman|Masqat|
+PK|Pakistan|Islamabad|
+PH|Filipijnen|Manilla|de
+QA|Qatar|Doha|
+SA|Saoedi-Arabië|Riyad|
+SG|Singapore|Singapore|
+KR|Zuid-Korea|Seoel|
+LK|Sri Lanka|Sri Jayewardenepura Kotte|
+SY|Syrië|Damascus|
+TJ|Tadzjikistan|Doesjanbe|
+TH|Thailand|Bangkok|
+TL|Oost-Timor|Dili|
+TR|Turkije|Ankara|
+TM|Turkmenistan|Asjchabad|
+AE|Verenigde Arabische Emiraten|Abu Dhabi|de
+UZ|Oezbekistan|Tasjkent|
+VN|Vietnam|Hanoi|
+YE|Jemen|Sanaa|
+AG|Antigua en Barbuda|Saint John's|
+BS|Bahama's|Nassau|de
+BB|Barbados|Bridgetown|
+BZ|Belize|Belmopan|
+CA|Canada|Ottawa|
+CR|Costa Rica|San José|
+CU|Cuba|Havana|
+DM|Dominica|Roseau|
+DO|Dominicaanse Republiek|Santo Domingo|de
+SV|El Salvador|San Salvador|
+GD|Grenada|Saint George's|
+GT|Guatemala|Guatemala-Stad|
+HT|Haïti|Port-au-Prince|
+HN|Honduras|Tegucigalpa|
+JM|Jamaica|Kingston|
+MX|Mexico|Mexico-Stad|
+NI|Nicaragua|Managua|
+PA|Panama|Panama-Stad|
+KN|Saint Kitts en Nevis|Basseterre|
+LC|Saint Lucia|Castries|
+VC|Saint Vincent en de Grenadines|Kingstown|
+TT|Trinidad en Tobago|Port of Spain|
+US|Verenigde Staten|Washington|de
+AR|Argentinië|Buenos Aires|
+BO|Bolivia|Sucre|
+BR|Brazilië|Brasilia|
+CL|Chili|Santiago|
+CO|Colombia|Bogota|
+EC|Ecuador|Quito|
+GY|Guyana|Georgetown|
+PY|Paraguay|Asunción|
+PE|Peru|Lima|
+SR|Suriname|Paramaribo|
+UY|Uruguay|Montevideo|
+VE|Venezuela|Caracas|
+AU|Australië|Canberra|
+FJ|Fiji|Suva|
+KI|Kiribati|Zuid-Tarawa|
+MH|Marshalleilanden|Majuro|de
+FM|Micronesië|Palikir|
+NR|Nauru|Yaren|
+NZ|Nieuw-Zeeland|Wellington|
+PW|Palau|Ngerulmud|
+PG|Papoea-Nieuw-Guinea|Port Moresby|
+WS|Samoa|Apia|
+SB|Salomonseilanden|Honiara|de
+TO|Tonga|Nuku'alofa|
+TV|Tuvalu|Funafuti|
+VU|Vanuatu|Port Vila|
