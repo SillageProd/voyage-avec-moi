@@ -1,5 +1,5 @@
 // Fonctionnement hors ligne : l'app (cartes comprises) est gardée en cache.
-const CACHE = "reis-met-mij-20261026115312";
+const CACHE = "reis-met-mij-20261028090407";
 const BASE = ["./", "index.html", "manifest.webmanifest", "icone-180.png", "icone-192.png", "icone-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(BASE)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith("reis-met-mij-") && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

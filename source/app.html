@@ -335,7 +335,7 @@ input[type="text"] {
   const ecrire = (cle, val) => { try { localStorage.setItem(PREFIXE + cle, JSON.stringify(val)); } catch (e) {} };
 
   // Numéro de version (MAJEUR.MINEUR.CORRECTIF) : à augmenter à chaque mise en ligne
-  const VERSION = "1.0.1";
+  const VERSION = "1.0.2";
   let versionEnLigne = null;   // version publiée sur le site, lue dans version.json
   const MAX_PROFILS = 6;
   const ANIMAUX = ["🦁", "🐸", "🐼", "🦊", "🐰", "🐙", "🐢", "🦄", "🐶", "🐱", "🐵", "🐧", "🐨", "🐯", "🦖", "🐝"];
@@ -458,15 +458,41 @@ input[type="text"] {
     } catch (e) {}
   }
 
+  // Choix de la voix : la plus naturelle installée sur l'appareil.
+  // Sur iPhone/iPad, les voix « Premium » ou « améliorées » (Réglages → Accessibilité → Contenu énoncé → Voix)
+  // passent avant les voix de base ; les voix fantaisie (Grandma, Rocko…) sont écartées.
+  const LANGUES = L(["fr-BE", "fr-FR", "fr-CA", "fr-CH"], ["nl-BE", "nl-NL"]);
+  const FANTAISIE = /eloquence|eddy|flo\b|grandma|grandpa|grand-m|grand-p|reed|rocko|sandy|shelley|bells|bubbles|boing|jester|organ|whisper|zarvox|trinoids|cellos|bahh|albert|bad news|good news|wobble|superstar|ralph|fred|junior|kathy/i;
+  let voixChoisie = null;
+  function noteVoix(v) {
+    const nom = (v.name + " " + v.voiceURI).toLowerCase();
+    if (FANTAISIE.test(nom)) return -1;
+    const rang = LANGUES.indexOf(v.lang.replace("_", "-"));
+    let n = rang < 0 ? (v.lang.slice(0, 2) === LANGUES[0].slice(0, 2) ? 1 : -1) : 10 - rang;
+    if (n < 0) return -1;
+    if (/premium/.test(nom)) n += 40;
+    else if (/enhanced|améliorée|amelioree|verbeterd|neural|natural|siri/.test(nom)) n += 30;
+    else if (/google/.test(nom)) n += 20;          // Android / Chrome
+    if (/compact/.test(nom)) n -= 5;
+    return n;
+  }
+  function choisirVoix() {
+    try {
+      const l = speechSynthesis.getVoices().map(v => [noteVoix(v), v]).filter(([n]) => n >= 0).sort((a, b) => b[0] - a[0]);
+      voixChoisie = l.length ? l[0][1] : null;
+    } catch (e) {}
+  }
+
   // Phrase dite à voix haute, si les sons sont activés (utile pour les plus petits qui lisent encore peu)
   function dire(texte) {
     if (!sonActif || !window.speechSynthesis) return;
     try {
-      const u = new SpeechSynthesisUtterance(texte);
-      const voix = speechSynthesis.getVoices();
-      u.lang = L("fr-BE", "nl-BE"); u.rate = .92; u.pitch = 1.15;
-      const v = voix.find(x => x.lang === u.lang) || voix.find(x => x.lang === L("fr-FR", "nl-NL")) || voix.find(x => x.lang.slice(0, 2) === u.lang.slice(0, 2));
-      if (v) { u.voice = v; u.lang = v.lang; }
+      if (!voixChoisie) choisirVoix();
+      // la voix s'arrête au tiret (« Pays-Bas » lu « Pays ») : on le remplace par un espace
+      const u = new SpeechSynthesisUtterance(texte.replace(/(\S)-(?=\S)/g, "$1 "));
+      // débit et hauteur naturels : une voix poussée dans les aigus sonne plus « robot »
+      u.lang = LANGUES[0]; u.rate = .95; u.pitch = 1;
+      if (voixChoisie) { u.voice = voixChoisie; u.lang = voixChoisie.lang; }
       speechSynthesis.cancel(); speechSynthesis.speak(u);
     } catch (e) {}
   }
@@ -1074,7 +1100,8 @@ input[type="text"] {
     const f = actions[el.dataset.a]; if (f) f(el);
   });
   addEventListener("resize", () => { if (ecran === "carte" && carteInfo) appliquerVue(); });
-  if (window.speechSynthesis) try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => {}; } catch (e) {}
+  // les voix arrivent parfois après l'ouverture de la page
+  if (window.speechSynthesis) try { choisirVoix(); speechSynthesis.onvoiceschanged = choisirVoix; } catch (e) {}
 
   async function verifierVersion() {
     try {
